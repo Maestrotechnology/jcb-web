@@ -167,3 +167,35 @@
   height: 20px;
   align-self: center;
 }
+
+/* Super Admin Styles */
+
+.superadminContainer{
+  background-color: var(--superadminBg);
+  min-height: 100vh;
+}
+
+.img{
+  width: 100px;
+}
+.user_img{
+  width: 19px;
+}
+.logoContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
+.linkContainer{
+  width: 100%;
+  border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+.link{
+  color: var(--blackColor);
+  padding: 0px 20px;
+  text-decoration: none;
+}
+.link:hover{
+  color: var(--secondaryColor);
+}

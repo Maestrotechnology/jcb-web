@@ -7,16 +7,14 @@ import ForgotPassword from './Authentication/ForgotPassword'
 import {
   AdminDashboardPrivateRoute,
   AuthPrivateRoute,
-  OperatorDashboardPrivateRoute,
+  SuperAdminDashboardPrivateRoute,
 } from './Authentication/PrivateRoute'
 import AdminDashboardLayout from './Layout/AdminDashboardLayout'
-import OperatorDashboardLayout from './Layout/OperatorDashboardLayout'
 import ErrorNotFound from './ErrorNotFound'
 import AuthLayout from './Layout/AuthLayout'
 import AdminHomeDashboard, {
   loader as dashboardLoader,
 } from './Dashboard/Admin/AdminHomeDashboard'
-import OperatorHomeDashboard from './Dashboard/Operator/OperatorHomeDashboard'
 import Vehicle from './Dashboard/Admin/Vehicle'
 import Operator from './Dashboard/Admin/Operator'
 import Customer from './Dashboard/Admin/Customer'
@@ -25,6 +23,8 @@ import Devices from './Dashboard/Admin/Devices'
 import ChargeSetting from './Dashboard/Admin/ChargeSetting'
 import ErrorElement from './ErrorNotFound/ErrorElement'
 import Profile from './Authentication/Profile'
+import SuperAdminDashboardLayout from './Layout/SuperAdminDashboardLayout'
+import SuperAdminHomeDashboard from './Dashboard/SuperAdmin/SuperAdminHomeDashboard'
 
 const router = createBrowserRouter([
   {
@@ -32,22 +32,27 @@ const router = createBrowserRouter([
     element: <AuthPrivateRoute />,
     children: [
       {
+        errorElement: <ErrorElement />,
         path: '/',
         element: <AuthLayout />,
         children: [
           {
+            errorElement: <ErrorElement />,
             index: true,
             element: <Signin />,
           },
           {
+            errorElement: <ErrorElement />,
             path: 'signup',
             element: <Signup />,
           },
           {
+            errorElement: <ErrorElement />,
             path: 'otp',
             element: <Otp />,
           },
           {
+            errorElement: <ErrorElement />,
             path: 'forgot_password',
             element: <ForgotPassword />,
           },
@@ -101,12 +106,13 @@ const router = createBrowserRouter([
     ],
   },
   {
-    element: <OperatorDashboardPrivateRoute />,
+    element: <SuperAdminDashboardPrivateRoute />,
     children: [
       {
-        path: '/operator_dashboard',
-        element: <OperatorDashboardLayout />,
-        children: [{ index: true, element: <OperatorHomeDashboard /> }],
+        errorElement: <ErrorElement />,
+        path: '/superadmin_dashboard/admin_details',
+        element: <SuperAdminDashboardLayout />,
+        children: [{ index: true, element: <SuperAdminHomeDashboard /> }],
       },
     ],
   },

@@ -54,7 +54,7 @@ export default function Signin() {
         navigate(
           res?.data?.user_type === 2
             ? '/admin_dashboard'
-            : '/operator_dashboard'
+            : '/superadmin_dashboard/admin_details'
         )
         toast('Login successfully!!!', { type: 'success' })
       })

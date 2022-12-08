@@ -1,0 +1,14 @@
+/* Admin Styles */
+
+.conatiner{
+  background-color: var(--whiteColor);
+  margin: 25px;
+  border-radius: 7px;
+  padding: 15px;
+}
+
+.title{
+  font-family: var(--fontSemibold);
+  font-size: var(--textMd);
+  letter-spacing: 0.5px;
+}
