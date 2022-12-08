@@ -1,0 +1,130 @@
+/* Signin Styles */
+
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.title{
+  font-family: var(--fontBold);
+  margin: 0;
+  text-align: center;
+  font-size: var(--textXl);
+}
+.description{
+  font-family: var(--fontRegular);
+  margin: 0;
+  text-align: center;
+  font-size: var(--textSm);
+}
+.iconContainer{
+  width: 44px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--iconBackground);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+.input{
+  border: none;
+  width: 100%;
+  outline: unset;
+  padding: 6px;
+}
+.inputContainer{
+  width: 100%;
+  display: flex;
+  background-color: var(--whiteColor);
+  border-radius: 25px;
+  margin: 10px 15px;
+  padding: 6px 12px;
+  box-shadow: var(--outlineShadow);
+  align-self: center;
+}
+.forgotTxt{
+  color: var(--dangerColor);
+  text-align: end;
+}
+
+.forgotTxt span{
+  cursor: pointer;
+}
+.loginBtn{
+  background: var(--primaryColor);
+  width: 50%;
+  border: unset;
+  padding: 10px 25px;
+  border-radius: 50px;
+  color: var(--whiteColor);
+  font-family: var(--fontSemibold);
+  align-self: center;
+  text-transform: uppercase;
+}
+.signupTxt{
+  color: var(--dangerColor);
+  cursor: pointer;
+}
+
+/* Otp Styles */
+
+.resendOtpTxt{
+  font-size: var(--textXs);
+  color: var(--blackColor);
+  font-family: var(--fontMedium);
+  text-align: end;
+  margin: 0;
+  width: 100%;
+}
+.resendOtpLink{
+  font-size: var(--textXs);
+  color: var(--dangerColor);
+  font-family: var(--fontMedium);
+  text-align: end;
+  margin: 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Profile Styles */
+
+.label{
+  font-size: var(--textSm);
+  margin: 0;
+  font-family: var(--fontSemibold);
+  margin-bottom: 2px;
+}
+
+.profileInput{
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: unset;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+
+.editTxt{
+  float: left;
+  font-family: var(--fontMedium);
+  cursor: pointer;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.parentEditContainer{
+  width: 100%;
+  float: left;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.changePasswordTxt{
+  margin: 0;
+  color: var(--dangerColor);
+  text-decoration: underline;
+  align-self: center;
+  margin-left: 15px;
+  cursor: pointer;
+}

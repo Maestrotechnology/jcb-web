@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --fontRegular: 'Inter Regular';
+  --fontSemibold: 'Inter SemiBold';
+  --fontMedium: 'Inter Medium';
+  --fontBold: 'Inter Bold';
+  --dangerColor: #f14a45;
+  --primaryColor: #fed23d;
+  --secondaryColor: #ec9b00;
+  --lightPrimaryColor: #ffca00;
+  --whiteColor: #fff;
+  --blackColor:#000;
+  --lowBlackColor:#252525;
+  --successColor:#2AB95A;
+  --iconBackground:rgba(236, 155, 0, 0.08);
+  --outlineShadow: rgba(99, 99, 99, 0.2) 0px 2px 6px 0px;
+  --textXs: 14px;
+  --textSm: 16px;
+  --textMd: 20px;
+  --textLg: 24px;
+  --textXl: 26px;
+  --textDefault: 17px;
+  --texth6: 19px;
+  --xlText: 75px;
+  --lgText: 63px;
+  --mdText: 48px;
+  --borderSm: 0.5px solid #bababa;
+  --border: 1px solid #bababa;
+}
+
+@font-face {
+  font-family: 'Inter Bold';
+  src: url('../src/Assets/Fonts/Inter-Bold.ttf') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Medium';
+  src: url('../src/Assets/Fonts/Inter-Medium.ttf') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Regular';
+  src: url('../src/Assets/Fonts/Inter-Regular.ttf') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter SemiBold';
+  src: url('../src/Assets/Fonts/Inter-SemiBold.ttf') format('woff');
+  font-display: swap;
+}
+
+.inputErrorTxt{
+  font-size: var(--textXs);
+  color: var(--dangerColor);
+  font-family: var(--fontSemibold);
+}
+
+.cancelBtn{
+  border: 1px solid rgba(0,0,0,0.2);
+  background: var(--whiteColor);
+  padding: 8px 25px;
+  border-radius: 5px;
+  color: var(--lowBlackColor);
+  margin-right: 15px;
+  height: 42px;
+}
+
+.saveBtn{
+  border: unset;
+  background: var(--secondaryColor);
+  padding: 8px 30px;
+  border-radius: 5px;
+  color: var(--whiteColor);
+  height: 42px;
+}
+
+.table-responsive{
+  width: 100% !important;
+}
+
+/* React paginate Custom Styles */
+
+.bg_orange{
+  background-color: var(--secondaryColor)!important;
+}
+.page-item.active .page-link{
+  background-color: white !important;
+  color: var(--secondaryColor)!important;
+}
+
+/* Profile Dropdown Custom Styles */
+.dropdown-toggle::after{
+  display: none !important;
+}

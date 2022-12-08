@@ -1,0 +1,17 @@
+/* Error Element Styles */
+
+.errorTxt{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: var(--fontSemibold);
+  font-size: var(--textLg);
+  color: var(--dangerColor);
+}
+
+.networkErrorImg{
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+}

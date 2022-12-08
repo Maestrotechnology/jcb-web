@@ -1,0 +1,106 @@
+/*  Vehicle Styles */
+
+.modalContainer{
+  padding: 25px !important;
+}
+
+.titleContainer{
+  width: 100%;
+  float: left;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.title{
+  font-size: var(--textLg);
+  font-family: var(--fontSemibold);
+  margin: 0;
+}
+
+.cancelImage{
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.label{
+  font-size: var(--textSm);
+  margin: 0;
+  font-family: var(--fontSemibold);
+  margin-bottom: 2px;
+}
+
+.input{
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: unset;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+
+/* Operator Styles */
+
+.imageUploadContainer{
+  width: 150px;
+  box-shadow: var(--outlineShadow);
+  padding: 10px 0px;
+  display: flex;
+  justify-content: center;
+  border-radius: 7px;
+  cursor: pointer;
+  height: 45px;
+}
+
+.img{
+  width: 25px;
+  height: 25px;
+}
+
+.uploadedImgContainer{
+  width: 130px;
+  height: 70px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 7px;
+  margin-left: 15px;
+  position: relative;
+}
+
+.uploadedImg{
+  width: 130px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.uploadImgCancel{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: -7px;
+  right: -5px;
+  cursor: pointer;
+}
+
+/* Change Password Styles */
+
+.changePwdInputContainer{
+  display: flex;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+
+.changePwdInput{
+  width: 98%;
+  outline: unset;
+  border: unset;
+
+}
+
+.pwdIcon{
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  align-self: center;
+}

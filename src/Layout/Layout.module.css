@@ -1,0 +1,169 @@
+/* Auth styles */
+
+.container {
+  background: url("../Assets/Images/authBg.png") no-repeat;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  padding: 5% 15%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.leftContainer {
+  width: 40%;
+  float: left;
+  align-self: center;
+  text-align: center;
+}
+
+.rightContainer {
+  width: 35%;
+  float: left;
+  align-self: center;
+}
+
+/* Admin Styles */
+
+.adminContainer {
+  width: 100%;
+  float: left;
+}
+
+.adminLeftContainer {
+  width: 350px;
+  float: left;
+  position: fixed;
+}
+
+.adminChildLeftConatiner {
+  margin: 15px;
+  background-color: var(--lightPrimaryColor);
+  height: calc(100vh - 30px);
+  border-radius: 15px;
+  box-shadow: var(--outlineShadow);
+}
+
+.adminInnerLeftContainer {
+  padding: 30px 0px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link {
+  margin: 0;
+  padding: 10px;
+  border-radius: 8px 0px 0px 8px;
+  font-family: var(--fontMedium);
+  font-size: var(--textSm);
+  text-transform: capitalize;
+  margin: 15px 0px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+}
+
+.adminRightContainer {
+  width: calc(100% - 350px);
+  float: left;
+  margin-left: 350px;
+  margin-top: 15px;
+  padding: 0px 20px;
+}
+
+.profileImgContainer{
+  width: 100%;
+  float: right;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.profileImg{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profileImgOuterBorder{
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--primaryColor);
+}
+
+.username{
+  font-size: var(--textLg);
+  font-family: var(--fontMedium);
+  color: var(--dangerColor);
+}
+
+.titleContainer{
+  width: 100%;
+  float: left;
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+
+.title{
+  font-size: var(--textLg);
+  font-family: var(--fontMedium);
+  width: 50%;
+  float: left;
+  margin: 0;
+}
+
+.stickyContainer{
+  width: 100%;
+  float: left;
+  position: sticky;
+  top: 0;
+  background-color: var(--whiteColor);
+}
+
+.searchParentContainer{
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchContainer{
+  width: 70%;
+  float: left;
+  border: 1px solid rgba(0,0,0,0.2);
+  padding: 5px;
+  border-radius: 7px;
+}
+
+.searchInput{
+  border: none;
+  width: 93%;
+  padding: 5px;
+  outline: unset;
+}
+
+.searchIcon{
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.addBtn{
+  border: unset;
+  background-color: var(--secondaryColor);
+  color: var(--whiteColor);
+  padding: 10px 30px;
+  border-radius: 7px;
+}
+
+.menuIcon{
+  width: 20px;
+  height: 20px;
+  align-self: center;
+}
