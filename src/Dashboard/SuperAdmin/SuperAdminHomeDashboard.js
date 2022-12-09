@@ -6,6 +6,7 @@ import { MOBILE_REGEX, NAME_REGEX } from '../../Utilities/Constants'
 import { useFormik } from 'formik'
 import { listCompanyAdminService } from '../../Services/Services'
 import toast from 'react-hot-toast'
+import AddSuperAdminCustomerModal from '../../ModalComponents/AddSuperAdminCustomerModal'
 
 const wrokReportSchema = Yup.object({
   customer_name: Yup.string().matches(NAME_REGEX, 'Enter valid customer name'),
@@ -30,6 +31,7 @@ export default function SuperAdminHomeDashboard() {
       customer_name: '',
       mobile_no: '',
       isLoader: false,
+      isAddCustomer: false,
     },
     validationSchema: wrokReportSchema,
     onSubmit: values => {
@@ -57,6 +59,14 @@ export default function SuperAdminHomeDashboard() {
   }
   return (
     <>
+      {values.isAddCustomer ? (
+        <AddSuperAdminCustomerModal
+          show={values.isAddCustomer}
+          close={() => {
+            setFieldValue('isAddCustomer', false)
+          }}
+        />
+      ) : null}
       <div className={classes.conatiner}>
         <p className={classes.title}>Customer</p>
         <div className="row">
@@ -103,7 +113,14 @@ export default function SuperAdminHomeDashboard() {
             <button className="saveBtn" onClick={handleSubmit}>
               Search
             </button>
-            <button className={classes.addCustomerBtn}>Add</button>
+            <button
+              className={classes.addCustomerBtn}
+              onClick={() => {
+                setFieldValue('isAddCustomer', true)
+              }}
+            >
+              Add
+            </button>
           </div>
         </div>
         <Table striped bordered hover responsive className="mt-4">

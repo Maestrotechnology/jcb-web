@@ -137,7 +137,7 @@ export default function AddOperatorModal({ show, close, handleListOperator }) {
             <input
               name="address"
               className={classes.input}
-              placeholder="Enter operator name"
+              placeholder="Enter your address"
               onChange={handleChange}
               value={values.address}
               maxLength="300"
