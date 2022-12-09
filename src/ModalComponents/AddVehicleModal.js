@@ -144,7 +144,8 @@ export default function AddVehicleModal({ show, close, handleListVehicle }) {
           />
         </div>
         <div className="row">
-          <div className="col-md-4 col-sm-12 my-2">
+
+          <div className="col-md-6 col-lg-4 col-sm-12 my-2">
             <p className={classes.label}>Select Device</p>
             <ReactSelect
               className="basic-single"
@@ -169,7 +170,8 @@ export default function AddVehicleModal({ show, close, handleListVehicle }) {
               }}
             />
           </div>
-          <div className="col-md-4 col-sm-12 my-2">
+
+          <div className="col-md-6 col-lg-4 col-sm-12 my-2">
             <p className={classes.label}>
               Vehicle Name <span className="inputErrorTxt">*</span>
             </p>
@@ -185,7 +187,8 @@ export default function AddVehicleModal({ show, close, handleListVehicle }) {
               <p className="inputErrorTxt">{errors.vehicle_name}</p>
             )}
           </div>
-          <div className="col-md-4 col-sm-12 my-2">
+
+          <div className="col-md-6 col-lg-4 col-sm-12 my-2">
             <p className={classes.label}>Vehicle Type</p>
             <input
               name="vehicle_type"
@@ -199,7 +202,8 @@ export default function AddVehicleModal({ show, close, handleListVehicle }) {
               <p className="inputErrorTxt">{errors.vehicle_type}</p>
             )}
           </div>
-          <div className="col-md-4 col-sm-12 my-2">
+
+          <div className="col-md-6 col-lg-4 col-sm-12 my-2">
             <p className={classes.label}>
               Vehicle No <span className="inputErrorTxt">*</span>
             </p>
@@ -216,7 +220,8 @@ export default function AddVehicleModal({ show, close, handleListVehicle }) {
               <p className="inputErrorTxt">{errors.vehicle_no}</p>
             )}
           </div>
-          <div className="col-md-4 col-sm-12 my-2">
+
+          <div className="col-md-6 col-lg-4 col-sm-12 my-2">
             <p className={classes.label}>Charge setting</p>
             <ReactSelect
               className="basic-single"

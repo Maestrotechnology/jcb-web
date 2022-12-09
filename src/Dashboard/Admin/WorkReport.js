@@ -46,7 +46,8 @@ export default function WorkReport() {
   return (
     <>
       <div className="row">
-        <div className="col-md-3 col-sm-12 my-2">
+
+        <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>Customer Name</p>
           <input
             name="customer_name"
@@ -60,7 +61,8 @@ export default function WorkReport() {
             <p className="inputErrorTxt">{errors.customer_name}</p>
           )}
         </div>
-        <div className="col-md-3 col-sm-12 my-2">
+
+        <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>Operator Name</p>
           <input
             name="operator_name"
@@ -74,7 +76,8 @@ export default function WorkReport() {
             <p className="inputErrorTxt">{errors.operator_name}</p>
           )}
         </div>
-        <div className="col-md-3 col-sm-12 my-2">
+
+        <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>Vehicle Name</p>
           <input
             name="vehicle_name"
@@ -88,7 +91,8 @@ export default function WorkReport() {
             <p className="inputErrorTxt">{errors.vehicle_name}</p>
           )}
         </div>
-        <div className="col-md-3 col-sm-12 my-2">
+
+        <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>From Date</p>
           <input
             type="date"
@@ -102,7 +106,8 @@ export default function WorkReport() {
             <p className="inputErrorTxt">{errors.fromDate}</p>
           )}
         </div>
-        <div className="col-md-3 col-sm-12 my-2">
+
+        <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>To Date</p>
           <input
             type="date"

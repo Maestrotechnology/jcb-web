@@ -13,8 +13,13 @@
   border-radius: 10px;
   flex-direction: column;
   align-items: center;
-  margin: 15px;
+  /* margin: 15px; */
   cursor: pointer;
+}
+
+.contain {
+  --bs-gutter-y: 1.5rem;
+
 }
 
 .imgContainer{
@@ -34,12 +39,17 @@
   margin-bottom: 0;
 }
 
-.container:first-child{
+
+/* .container:first-child{
+>>>>>>> 771a24c (responsive)
   margin-left: 15px;
 }
 .container:nth-child(4n-7){
   margin-left: 15px;
+<<<<<<< HEAD
 }
+=======
+} */
 
 /* Vehicle Styles */
 

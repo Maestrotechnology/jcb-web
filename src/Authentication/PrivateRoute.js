@@ -2,9 +2,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { getCookie } from '../Utilities/Cookies'
 
 export const AuthPrivateRoute = () => {
-  let isAdminOrOperator = getCookie('loginData')
-    ? JSON.parse(getCookie('loginData'))
-    : null
+  let isAdminOrOperator = getCookie('loginData') ? JSON.parse(getCookie('loginData')) : null
   return getCookie('loginData') !== '' ? (
     <Navigate
       to={

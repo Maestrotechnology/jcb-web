@@ -135,7 +135,8 @@ export default function Profile() {
         </p>
       </div>
       <div className="row">
-        <div className="col-md-3 col-sm-12 my-2">
+
+        <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>
             Name <span className="inputErrorTxt">*</span>
           </p>
@@ -153,7 +154,8 @@ export default function Profile() {
             <p className="inputErrorTxt mb-0">{errors.name}</p>
           )}
         </div>
-        <div className="col-md-3 col-sm-12 my-2">
+
+        <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>
             Email <span className="inputErrorTxt">*</span>
           </p>
@@ -171,7 +173,8 @@ export default function Profile() {
             <p className="inputErrorTxt mb-0">{errors.email}</p>
           )}
         </div>
-        <div className="col-md-3 col-sm-12 my-2">
+
+        <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>
             Mobile No <span className="inputErrorTxt">*</span>
           </p>
@@ -189,7 +192,8 @@ export default function Profile() {
             <p className="inputErrorTxt mb-0">{errors.mobile}</p>
           )}
         </div>
-        <div className="col-md-3 col-sm-12 my-2">
+
+        <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>
             Company code <span className="inputErrorTxt">*</span>
           </p>
@@ -207,7 +211,8 @@ export default function Profile() {
             <p className="inputErrorTxt mb-0">{errors.company_code}</p>
           )}
         </div>
-        <div className="col-md-3 col-sm-12 my-2">
+
+        <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>
             Address <span className="inputErrorTxt">*</span>
           </p>

@@ -32,27 +32,22 @@ const router = createBrowserRouter([
     element: <AuthPrivateRoute />,
     children: [
       {
-        errorElement: <ErrorElement />,
         path: '/',
         element: <AuthLayout />,
         children: [
           {
-            errorElement: <ErrorElement />,
             index: true,
             element: <Signin />,
           },
           {
-            errorElement: <ErrorElement />,
             path: 'signup',
             element: <Signup />,
           },
           {
-            errorElement: <ErrorElement />,
             path: 'otp',
             element: <Otp />,
           },
           {
-            errorElement: <ErrorElement />,
             path: 'forgot_password',
             element: <ForgotPassword />,
           },

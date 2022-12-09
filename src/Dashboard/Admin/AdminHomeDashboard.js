@@ -58,17 +58,20 @@ export default function AdminHomeDashboard() {
   ]
 
   return (
-    <div className="row col-md-12">
+
+    <div className="row col-md-12 pb-4">
       {dashboardData.map(ele => (
+
+        <div className={classes.contain  + ' col-xl-3 col-lg-4 col-sm-6 col-12'} key={ele.id} onClick={() => navigate(ele.navigatePath)}>
         <div
-          key={ele.id}
-          onClick={() => navigate(ele.navigatePath)}
-          className={classes.container + ' col-md-2 col-sm-12'}
+          className={classes.container}
         >
           <div className={classes.imgContainer}>
             <img src={ele.img} alt={ele.alt_text} />
           </div>
           <p className={classes.dashboardTitle}>{ele.name}</p>
+        </div>
+
         </div>
       ))}
     </div>
