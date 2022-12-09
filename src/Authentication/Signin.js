@@ -54,7 +54,11 @@ export default function Signin() {
         navigate(
           res?.data?.user_type === 2
             ? '/admin_dashboard'
+// <<<<<<< HEAD
             : '/superadmin_dashboard/admin_details'
+// =======
+//             : '/operator_dashboard'
+// >>>>>>> 771a24c (responsive)
         )
         toast('Login successfully!!!', { type: 'success' })
       })
@@ -72,8 +76,9 @@ export default function Signin() {
     <>
       <Loader isLoader={values.isLoader} />
       <div className={classes.container}>
-        <p className={classes.title}>Hello Again!</p>
-        <p className={classes.description}>
+
+        <p className={classes.title + " mb-2"}>Hello Again!</p>
+        <p className={classes.description + " mb-2"}>
           Hello, welcome back to our application
         </p>
         <div className={classes.inputContainer}>

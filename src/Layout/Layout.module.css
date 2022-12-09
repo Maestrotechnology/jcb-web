@@ -30,25 +30,48 @@
   float: left;
 }
 
-.adminLeftContainer {
+
+.adminLeftContainer , .adminLeftContainer1 {
   width: 350px;
   float: left;
   position: fixed;
 }
 
-.adminChildLeftConatiner {
-  margin: 15px;
+
+.adminLeftContainer1{
+  width: 280px !important;
+
+}
+.adminChildLeftConatiner , .adminChildLeftConatiner1{
   background-color: var(--lightPrimaryColor);
-  height: calc(100vh - 30px);
   border-radius: 15px;
+  margin: 15px;
   box-shadow: var(--outlineShadow);
 }
 
-.adminInnerLeftContainer {
+.adminChildLeftConatiner{
+    height: calc(100vh - 30px);
+ 
+}
+
+.adminChildLeftConatiner1{
+  margin: 0px !important;
+  border-radius: 0px 15px 15px 0px !important;
+  height: 100vh;
+
+
+}
+
+.adminInnerLeftContainer , .adminInnerLeftContainer1{
   padding: 30px 0px 30px 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+
+.adminInnerLeftContainer1{
+  padding: 0px 0px 0px 30px !important;  
 }
 
 .link {
@@ -95,10 +118,10 @@
   justify-content: center;
   align-items: center;
   border: 2px solid var(--primaryColor);
+  margin-left: auto;
 }
 
 .username{
-  font-size: var(--textLg);
   font-family: var(--fontMedium);
   color: var(--dangerColor);
 }
@@ -109,12 +132,13 @@
   display: flex;
   justify-content: space-between;
   margin: 15px 0;
+
+  flex-wrap: wrap;
 }
 
 .title{
-  font-size: var(--textLg);
   font-family: var(--fontMedium);
-  width: 50%;
+  /* width: 50%; */
   float: left;
   margin: 0;
 }
@@ -128,13 +152,17 @@
 }
 
 .searchParentContainer{
-  width: 30%;
+
+  /* width: 30%; */
+  max-width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
 .searchContainer{
-  width: 70%;
+
+  width: 250px;
+  margin-right: 10px;
   float: left;
   border: 1px solid rgba(0,0,0,0.2);
   padding: 5px;
@@ -143,7 +171,8 @@
 
 .searchInput{
   border: none;
-  width: 93%;
+
+  width: 88%;
   padding: 5px;
   outline: unset;
 }
@@ -168,7 +197,7 @@
   align-self: center;
 }
 
-/* Super Admin Styles */
+/* Super admin Styles */
 
 .superadminContainer{
   background-color: var(--superadminBg);
@@ -199,3 +228,104 @@
 .link:hover{
   color: var(--secondaryColor);
 }
+
+/* Responsive */
+
+.Toggle{
+height: 18px;
+margin-top: 3px;
+border: 0.913133px solid rgba(241, 74, 69, 0.08);
+box-shadow: 0px 3px 3.65253px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+.canvasClose{
+  display: flex;
+  justify-content: flex-end;
+  padding : 10px 10px 0px 0px;
+}
+.canvasClose>button {
+  background-color: white !important;
+  width: 30px;
+  height: 30px;
+  border: none !important;
+  outline: none !important;
+  border-radius: 50% !important;
+  color: var(--primaryColor);
+  font-weight: bolder;
+}
+
+
+@media (min-width : 992px) and  (max-width :1200px){
+  .adminLeftContainer{
+    width: 300px !important;
+  }
+
+  .adminRightContainer {
+    width: calc(100% - 300px) !important;
+    margin-left: 300px !important;
+  }
+
+  .rightContainer{
+    width: 50% !important;
+  }
+}
+
+@media (min-width : 768px) and  (max-width :991px){
+  .adminLeftContainer{
+    width: 250px !important;
+  }
+
+  .adminRightContainer {
+    width: calc(100% - 250px) !important;
+    margin-left: 250px !important;
+  }
+  .rightContainer{
+    width: 55% !important;
+  }
+}
+
+@media (max-width : 767px){
+  .adminLeftContainer{
+    display: none !important;
+  }
+
+  .adminRightContainer {
+    width:100% !important;
+    margin-left: 0px !important;
+  }
+  .Toggle{
+    display: block !important;
+  }
+  .title{
+    font-size: var(--textMd) !important;
+  }
+
+  .username{
+    font-size: var(--textMd) !important;
+  }
+  .rightContainer{
+    width: 100% !important;
+    margin-top: -50px !important;
+   
+  }
+  .leftContainer{
+    display: none !important;
+  }
+  .container{
+    padding: 5% 10% !important;
+
+  
+  }
+}
+
+@media (min-width : 768px){
+  .title{
+    font-size: var(--textLg);
+  }
+  .username{
+    font-size: var(--textLg);
+  }
+}
+
+

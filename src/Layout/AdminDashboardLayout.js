@@ -7,7 +7,8 @@ import OperatorImage from '../Assets/Icons/operator.png'
 import CustomeImage from '../Assets/Icons/customer.png'
 import WorkReportImage from '../Assets/Icons/work_report.png'
 import SearchImage from '../Assets/Icons/search.png'
-import { Dropdown } from 'react-bootstrap'
+import toggle from "../Assets/Icons/toggler1.png"
+import { Dropdown, Navbar, Offcanvas } from 'react-bootstrap'
 import LogoutConfirmationModal from '../ModalComponents/LogoutConfirmationModal'
 import Loader from '../Loader'
 import { viewProfileService } from '../Services/Services'
@@ -29,6 +30,8 @@ export default function AdminDashboardLayout() {
   const [isLogout, setIsLogout] = useState(false)
   const [isLoader, setIsLoader] = useState(false)
   const [userName, setUserName] = useState('')
+
+  const [toggler , settoggler] = useState(false);
   const navigationData = [
     {
       id: 1,
@@ -74,6 +77,9 @@ export default function AdminDashboardLayout() {
     },
   ]
 
+
+
+
   useEffect(() => {
     handleGetProfileInfo()
   }, [])
@@ -94,6 +100,11 @@ export default function AdminDashboardLayout() {
       })
       .finally(() => setIsLoader(false))
   }
+
+
+
+
+  const handleClose =()=> settoggler(false)
 
   return (
     <>
@@ -134,6 +145,45 @@ export default function AdminDashboardLayout() {
         <div className={classes.adminRightContainer}>
           <div className={classes.stickyContainer}>
             <div className={classes.profileImgContainer}>
+
+
+              <img onClick={()=>{settoggler(pre=>!pre)}} className={classes.Toggle} src={toggle} alt="profile" />
+
+              <Offcanvas navigationData={navigationData}  show={toggler} onHide={handleClose}>
+        <Offcanvas.Body>
+        <div className={classes.adminLeftContainer1}>
+
+          <div className={classes.adminChildLeftConatiner1}>
+          <div onClick={()=>{settoggler(pre=>!pre)}} className={classes.canvasClose} ><button>X</button></div>
+
+            <div className={classes.adminInnerLeftContainer1}>
+              {navigationData?.map(ele => (
+                <div
+                  key={ele.id}
+                  className={classes.link}
+                  style={{
+                    backgroundColor:
+                      pathname === ele.navigatePath ? '#fff' : null,
+                  }}
+                  onClick={() => {
+                    navigate(ele.navigatePath)
+                    settoggler(pre=>!pre)
+                  }}
+                >
+                  <img
+                    src={ele.icon}
+                    alt={ele.name}
+                    className={classes.menuIcon}
+                  />
+                  <span className="ms-2">{ele.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        </Offcanvas.Body>
+      </Offcanvas>
+
               <div className={classes.profileImgOuterBorder}>
                 <Dropdown
                   onSelect={e => {

@@ -97,4 +97,22 @@
 /* Profile Dropdown Custom Styles */
 .dropdown-toggle::after{
   display: none !important;
+
+}
+.btn-close{
+  background:  var(--secondaryColor) !important;
+}
+
+.offcanvas-body{
+  padding: 0 !important;
+}
+
+.offcanvas{
+  width: 280px !important;
+  border-radius: 0px 15px 15px 0px !important;
+
+}
+
+.fade{
+  padding-left: 0 !important;
 }
