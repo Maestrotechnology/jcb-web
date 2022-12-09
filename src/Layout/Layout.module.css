@@ -181,21 +181,21 @@
 .user_img{
   width: 19px;
 }
-.logoContainer{
+.superAdminLogoContainer{
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 30px;
 }
-.linkContainer{
+.superAdminLinkContainer{
   width: 100%;
   border-bottom: 1px solid rgba(0,0,0,0.3);
 }
-.link{
+.superAdminLink{
   color: var(--blackColor);
   padding: 0px 20px;
   text-decoration: none;
 }
-.link:hover{
+.superAdminLink:hover{
   color: var(--secondaryColor);
 }

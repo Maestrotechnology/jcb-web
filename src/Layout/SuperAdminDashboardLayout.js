@@ -18,7 +18,7 @@ export default function SuperAdminDashboardLayout() {
           close={() => setIsLogout(false)}
         />
       ) : null}
-      <div className={classes.logoContainer}>
+      <div className={classes.superAdminLogoContainer}>
         <img src={HeaderLogo} alt="header logo" className={classes.img} />
         <div>
           <Dropdown>
@@ -44,9 +44,9 @@ export default function SuperAdminDashboardLayout() {
           </Dropdown>
         </div>
       </div>
-      <div className={classes.linkContainer}>
+      <div className={classes.superAdminLinkContainer}>
         <Link
-          className={classes.link}
+          className={classes.superAdminLink}
           style={{
             color:
               pathname === '/superadmin_dashboard/admin_details'
