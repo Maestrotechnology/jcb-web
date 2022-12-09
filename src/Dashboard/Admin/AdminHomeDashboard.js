@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import classes from './Admin.module.css'
-import { dashboardService, viewProfileService } from '../../Services/Services'
+import { dashboardService } from '../../Services/Services'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import VehicleImage from '../../Assets/Icons/vehicle.png'
 import OperatorImage from '../../Assets/Icons/operator.png'
 import CustomeImage from '../../Assets/Icons/customer.png'
 import WorkReportImage from '../../Assets/Icons/work_report.png'
-import { handleUserData } from '../../Store/Reducers/AuthReducer'
-import toast from 'react-hot-toast'
 export default function AdminHomeDashboard() {
   const { data } = useLoaderData()
   const navigate = useNavigate()
@@ -58,20 +56,19 @@ export default function AdminHomeDashboard() {
   ]
 
   return (
-
     <div className="row col-md-12 pb-4">
       {dashboardData.map(ele => (
-
-        <div className={classes.contain  + ' col-xl-3 col-lg-4 col-sm-6 col-12'} key={ele.id} onClick={() => navigate(ele.navigatePath)}>
         <div
-          className={classes.container}
+          className={classes.contain + ' col-xl-3 col-lg-4 col-sm-6 col-12'}
+          key={ele.id}
+          onClick={() => navigate(ele.navigatePath)}
         >
-          <div className={classes.imgContainer}>
-            <img src={ele.img} alt={ele.alt_text} />
+          <div className={classes.container}>
+            <div className={classes.imgContainer}>
+              <img src={ele.img} alt={ele.alt_text} />
+            </div>
+            <p className={classes.dashboardTitle}>{ele.name}</p>
           </div>
-          <p className={classes.dashboardTitle}>{ele.name}</p>
-        </div>
-
         </div>
       ))}
     </div>

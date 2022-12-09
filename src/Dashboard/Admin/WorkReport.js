@@ -14,39 +14,31 @@ const wrokReportSchema = Yup.object({
 
 export default function WorkReport() {
   const maxDate = new Date()
-  const {
-    handleChange,
-    handleSubmit,
-    values,
-    errors,
-    touched,
-    setValues,
-    resetForm,
-  } = useFormik({
-    initialValues: {
-      customer_name: '',
-      operator_name: '',
-      vehicle_name: '',
-      fromDate: '',
-      toDate: '',
-    },
-    validationSchema: wrokReportSchema,
-    validate: () => {
-      let err = {}
-      if (Date.parse(values.fromDate) > Date.parse(values.toDate)) {
-        err.toDate = 'To date must be before from date'
-      }
-      return err
-    },
-    onSubmit: values => {
-      console.log(values, 'values')
-    },
-  })
+  const { handleChange, handleSubmit, values, errors, touched, resetForm } =
+    useFormik({
+      initialValues: {
+        customer_name: '',
+        operator_name: '',
+        vehicle_name: '',
+        fromDate: '',
+        toDate: '',
+      },
+      validationSchema: wrokReportSchema,
+      validate: () => {
+        let err = {}
+        if (Date.parse(values.fromDate) > Date.parse(values.toDate)) {
+          err.toDate = 'To date must be before from date'
+        }
+        return err
+      },
+      onSubmit: values => {
+        console.log(values, 'values')
+      },
+    })
 
   return (
     <>
       <div className="row">
-
         <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>Customer Name</p>
           <input

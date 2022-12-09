@@ -25,6 +25,7 @@ import ErrorElement from './ErrorNotFound/ErrorElement'
 import Profile from './Authentication/Profile'
 import SuperAdminDashboardLayout from './Layout/SuperAdminDashboardLayout'
 import SuperAdminHomeDashboard from './Dashboard/SuperAdmin/SuperAdminHomeDashboard'
+import SuperAdminDevice from './Dashboard/SuperAdmin/SuperAdminDevice'
 
 const router = createBrowserRouter([
   {
@@ -105,9 +106,12 @@ const router = createBrowserRouter([
     children: [
       {
         errorElement: <ErrorElement />,
-        path: '/superadmin_dashboard/admin_details',
+        path: '/superadmin_dashboard',
         element: <SuperAdminDashboardLayout />,
-        children: [{ index: true, element: <SuperAdminHomeDashboard /> }],
+        children: [
+          { index: true, element: <SuperAdminHomeDashboard /> },
+          { path: 'devices', element: <SuperAdminDevice /> },
+        ],
       },
     ],
   },

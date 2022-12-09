@@ -11,4 +11,23 @@
   font-family: var(--fontSemibold);
   font-size: var(--textMd);
   letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.input{
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: unset;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+
+.addCustomerBtn{
+  border: unset;
+  background: var(--secondaryColor);
+  padding: 8px 30px;
+  border-radius: 5px;
+  color: var(--whiteColor);
+  height: 42px;
+  margin-left: 15px;
 }

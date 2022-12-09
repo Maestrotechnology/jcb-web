@@ -160,7 +160,6 @@
 }
 
 .searchContainer{
-
   width: 250px;
   margin-right: 10px;
   float: left;
@@ -171,7 +170,6 @@
 
 .searchInput{
   border: none;
-
   width: 88%;
   padding: 5px;
   outline: unset;
@@ -200,42 +198,112 @@
 /* Super admin Styles */
 
 .superadminContainer{
-  background-color: var(--superadminBg);
+  background-color: var(--lightPrimaryColor);
+  width: 100%;
+  float: left;
+}
+
+.superadminLeftContainer{
+  width: 300px;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-height: 100vh;
 }
 
-.img{
+.superadminRightContainer{
+  background-color: var(--superadminBg);
+  width: calc(100% - 300px);
+  margin-left: 300px;
+  border-radius: 35px 0  0 35px;
+  padding: 20px;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: auto;
+  position: fixed;
+}
+
+.superAdminProfileImgContainer{
+  margin: 50px 0;
+}
+
+.superAdminProfieImg{
   width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
 }
-.user_img{
-  width: 19px;
+
+.superAdminProfileTxt{
+  font-size: var(--textSm);
+  font-family: var(--fontSemibold);
 }
-.superAdminLogoContainer{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 30px;
+
+.superAdminMenuLinkIcons{
+  width: 25px;
+  height: 25px;
+  align-self: center;
+  margin-right: 10px;
 }
-.superAdminLinkContainer{
-  width: 100%;
-  border-bottom: 1px solid rgba(0,0,0,0.3);
+
+.superAdminMenuLinks{
+  font-size: var(--textSm);
+  font-family: var(--fontMedium);
+  padding: 8px 15px;
+  border-radius: 7px;
+  align-self: center;
+  width: 212.66px;
+  cursor: pointer;
 }
-.superAdminLink{
-  color: var(--blackColor);
-  padding: 0px 20px;
-  text-decoration: none;
+
+.superAdminMenuLinkContainer{
+  min-height: 465px;
+  max-height: 465px;
+  overflow: auto;
+  scrollbar-color: var(--whiteColor) var(--whiteColor);
+  scrollbar-width: none;
+} 
+
+.logoutTxt{
+  font-size: var(--textSm);
+  font-family: var(--fontMedium);
+  align-self: center;
+  margin: 0;
+  cursor: pointer;
 }
-.superAdminLink:hover{
-  color: var(--secondaryColor);
+
+.logoutImg{
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  align-self: center;
+}
+
+/* Custom scrollbar Styles */
+
+::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  background: var(--whiteColor);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--whiteColor);
+  -webkit-border-radius: 1ex;
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--whiteColor);
 }
 
 /* Responsive */
 
 .Toggle{
-height: 18px;
-margin-top: 3px;
-border: 0.913133px solid rgba(241, 74, 69, 0.08);
-box-shadow: 0px 3px 3.65253px rgba(0, 0, 0, 0.1);
+  height: 18px;
+  margin-top: 3px;
+  border: 0.913133px solid rgba(241, 74, 69, 0.08);
+  box-shadow: 0px 3px 3.65253px rgba(0, 0, 0, 0.1);
   display: none;
 }
 

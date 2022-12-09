@@ -145,3 +145,26 @@ export const listCustomerWorkReportService = data => {
     `operator_collection/list_operator_collection?page=1&size=10`
   )
 }
+
+// Super admin services
+
+export const listCompanyAdminService = (data, page) => {
+  return axios.post(
+    `company_admin/list_company_admin?page=${page}&size=10`,
+    data
+  )
+}
+
+export const createCompanyAdminService = data => {
+  return axios.post('company_admin/create_company_admin', data)
+}
+
+export const updateComopanyAdminService = data => {
+  return axios.put('company_admin/update_company_admin', data)
+}
+
+export const deleteCompanyAdminService = delete_id => {
+  return axios.delete(
+    `company_admin/delete_company_admin?company_admin_id=${delete_id}`
+  )
+}
