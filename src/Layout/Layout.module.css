@@ -241,8 +241,8 @@
 }
 
 .superAdminMenuLinkIcons{
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   align-self: center;
   margin-right: 10px;
 }
@@ -255,6 +255,7 @@
   align-self: center;
   width: 212.66px;
   cursor: pointer;
+  display: flex;
 }
 
 .superAdminMenuLinkContainer{
@@ -271,6 +272,7 @@
   align-self: center;
   margin: 0;
   cursor: pointer;
+  display: flex;
 }
 
 .logoutImg{

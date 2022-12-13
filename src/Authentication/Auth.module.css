@@ -26,6 +26,18 @@
   justify-content: center;
   align-items: center;
 } 
+
+.iconContainer img {
+  width: 14px;
+  height: 16px;
+}
+
+.passwordIcon{
+  width: 14px;
+  height: 16px;
+  cursor: pointer;
+}
+
 .input{
   border: none;
   width: 100%;

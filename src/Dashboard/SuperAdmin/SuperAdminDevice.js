@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Table } from 'react-bootstrap'
 import classes from './SuperAdmin.module.css'
 import * as Yup from 'yup'
-import { NAME_REGEX } from '../../Utilities/Constants'
+import { SPECIAL_CHARACTER_REGEX } from '../../Utilities/Constants'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import ReactPaginate from 'react-paginate'
@@ -16,15 +16,16 @@ import EditDeviceModal from '../../ModalComponents/EditDeviceModal'
 import LeftArrowImage from '../../Assets/Icons/paginate_left_arrow.png'
 import RightArrowImage from '../../Assets/Icons/paginate_right_arrow.png'
 const wrokReportSchema = Yup.object({
-  device_name: Yup.string().matches(NAME_REGEX, 'Enter valid vehicle name'),
+  device_name: Yup.string().matches(
+    SPECIAL_CHARACTER_REGEX,
+    'Enter valid device name'
+  ),
 })
 
 export default function SuperAdminDevice() {
   useEffect(() => {
     handleSuperAdminListDevice()
   }, [])
-  const [isEditModal, setIsEditModal] = useState({ show: false, data: null })
-  const [page, setPage] = useState(0)
   const maxDate = new Date()
   const {
     handleChange,
@@ -32,7 +33,7 @@ export default function SuperAdminDevice() {
     values,
     errors,
     touched,
-    resetForm,
+    setValues,
     setFieldValue,
   } = useFormik({
     initialValues: {
@@ -40,8 +41,10 @@ export default function SuperAdminDevice() {
       fromDate: '',
       toDate: '',
       deviceData: [],
+      isEdit: { show: false, data: null },
       isDelete: { show: false, delete_id: '' },
       isLoader: false,
+      page: 0,
     },
     validationSchema: wrokReportSchema,
     validate: () => {
@@ -91,21 +94,30 @@ export default function SuperAdminDevice() {
       })
       .finally(() => setFieldValue('isLoader', false))
   }
+
+  const handleResetForm = () => {
+    setValues({
+      ...values,
+      device_name: '',
+      fromDate: '',
+      toDate: '',
+    })
+    handleSuperAdminListDevice()
+  }
+
   return (
     <>
       <Loader isLoader={values.isLoader} />
-      {isEditModal.show ? (
+      {values.isEdit.show ? (
         <EditDeviceModal
-          show={isEditModal.show}
+          show={values.isEdit.show}
           close={() =>
-            setIsEditModal(prev => {
-              return {
-                ...prev,
-                show: false,
-              }
+            setFieldValue('isEdit', {
+              ...values.isEdit,
+              show: false,
             })
           }
-          editData={isEditModal.data}
+          editData={values.isEdit.data}
         />
       ) : null}
       {values.isDelete.show ? (
@@ -169,7 +181,7 @@ export default function SuperAdminDevice() {
             )}
           </div>
           <div className="col-md-12 my-2 d-flex justify-content-end align-items-center">
-            <button className="cancelBtn" onClick={resetForm}>
+            <button className="cancelBtn" onClick={handleResetForm}>
               Reset
             </button>
             <button className="saveBtn" onClick={handleSubmit}>
@@ -184,7 +196,7 @@ export default function SuperAdminDevice() {
               <th>Date</th>
               <th>Device Name</th>
               <th>Device Code</th>
-              <th>Action</th>
+              {/* <th>Action</th> */}
             </tr>
           </thead>
           <tbody className={classes.tableBody}>
@@ -197,17 +209,15 @@ export default function SuperAdminDevice() {
                 <td>{ele.created_at}</td>
                 <td>{ele.device_name}</td>
                 <td>{ele.device_code}</td>
-                <td>
+                {/* <td>
                   <img
                     className={classes.actionIcons}
                     src={EditImage}
                     alt="edit icon"
                     onClick={() =>
-                      setIsEditModal(prev => {
-                        return {
-                          show: true,
-                          data: ele,
-                        }
+                      setFieldValue('isEdit', {
+                        show: true,
+                        data: ele,
                       })
                     }
                   />
@@ -222,7 +232,7 @@ export default function SuperAdminDevice() {
                       })
                     }}
                   />
-                </td>
+                </td> */}
               </tr>
             ))}
             {values?.deviceData?.items?.length === 0 ? (
@@ -247,7 +257,7 @@ export default function SuperAdminDevice() {
               onPageChange={({ selected }) =>
                 handleSuperAdminListDevice(selected + 1)
               }
-              forcePage={page}
+              forcePage={values.page}
               containerClassName={'pagination m-0'}
               pageClassName={'page-item'}
               pageLinkClassName={

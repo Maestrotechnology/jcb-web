@@ -186,7 +186,6 @@ export default function Vehicle() {
                   id={index}
                   isChecked={ele?.permission_status === 0 ? false : true}
                   handleChange={({ status }) => {
-                    console.log(status, '==toggle status')
                     handleChangePermissionStatus(ele.vehicle_id, status)
                   }}
                 />

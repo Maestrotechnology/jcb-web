@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import UserLogo from '../Assets/Icons/dashboard.png'
+import UserLogo from '../Assets/Icons/dashboard.svg'
+import CustomeImage from '../Assets/Icons/customer.png'
 import classes from './Layout.module.css'
 import { useSelector } from 'react-redux'
 import LogoutConfirmationModal from '../ModalComponents/LogoutConfirmationModal'
@@ -11,12 +12,14 @@ export default function SuperAdminDashboardLayout() {
   const { loginUserData } = useSelector(state => state.auth)
   const [isLogout, setIsLogout] = useState(false)
 
+  console.log(loginUserData, '====')
+
   const navigationMenuData = [
     {
       id: 1,
       name: 'Customer',
       navigationPath: '/superadmin_dashboard',
-      img: UserLogo,
+      img: CustomeImage,
       altTxt: 'dashboard',
     },
     {
@@ -44,12 +47,13 @@ export default function SuperAdminDashboardLayout() {
             className={classes.superAdminProfieImg}
             alt="user"
           />
-          <p className={classes.superAdminProfileTxt}>User name</p>
+          <p className={classes.superAdminProfileTxt}>Super Admin</p>
         </div>
 
         <div className={classes.superAdminMenuLinkContainer}>
           {navigationMenuData.map(ele => (
             <p
+              key={ele.id}
               className={classes.superAdminMenuLinks}
               style={{
                 backgroundColor:

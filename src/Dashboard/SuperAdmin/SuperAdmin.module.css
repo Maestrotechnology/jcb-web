@@ -31,3 +31,17 @@
   height: 42px;
   margin-left: 15px;
 }
+
+.actionIcons{
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.paginateContainer{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin: 15px 0;
+}

@@ -3,8 +3,6 @@ import { Modal } from 'react-bootstrap'
 import classes from './Modal.module.css'
 import CancelImage from '../Assets/Icons/rounded_cancel.png'
 import * as Yup from 'yup'
-import toast from 'react-hot-toast'
-import { createDeviceService } from '../Services/Services'
 import { SPECIAL_CHARACTER_REGEX } from '../Utilities/Constants'
 import { useFormik } from 'formik'
 
@@ -26,25 +24,18 @@ export default function EditDeviceModal({ show, close, deviceData, editData }) {
     })
   }, [])
 
-  const {
-    handleSubmit,
-    handleChange,
-    values,
-    errors,
-    touched,
-    setFieldValue,
-    setValues,
-  } = useFormik({
-    initialValues: {
-      device_code: '',
-      device_name: '',
-      isLoader: false,
-    },
-    validationSchema: deviceSchema,
-    onSubmit: values => {
-      console.log(values)
-    },
-  })
+  const { handleSubmit, handleChange, values, errors, touched, setValues } =
+    useFormik({
+      initialValues: {
+        device_code: '',
+        device_name: '',
+        isLoader: false,
+      },
+      validationSchema: deviceSchema,
+      onSubmit: values => {
+        console.log(values)
+      },
+    })
 
   return (
     <Modal show={show} size="md" centered>

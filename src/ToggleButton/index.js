@@ -1,7 +1,6 @@
 import React from 'react'
 import classes from './Toggle.module.css'
 export default function Toggle({ id, isChecked = false, handleChange }) {
-  console.log(isChecked, id, '===toggle')
   return (
     <>
       <input

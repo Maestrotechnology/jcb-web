@@ -1,13 +1,10 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { Modal } from 'react-bootstrap'
 import classes from './Modal.module.css'
 import CancelImage from '../Assets/Icons/rounded_cancel.png'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
-import {
-  createCompanyAdminService,
-  createOperatorService,
-} from '../Services/Services'
+import { createCompanyAdminService } from '../Services/Services'
 import toast from 'react-hot-toast'
 import {
   COMPANY_CODE_REGEX,
@@ -15,7 +12,6 @@ import {
   MOBILE_REGEX,
   NAME_REGEX,
 } from '../Utilities/Constants'
-import UploadImage from '../Assets/Icons/upload_image.png'
 const operatorSchema = Yup.object({
   customer_name: Yup.string()
     .matches(NAME_REGEX, 'Enter valid name')
@@ -41,31 +37,23 @@ export default function AddSuperAdminCustomerModal({
   close,
   handleListCustomer,
 }) {
-  const {
-    handleSubmit,
-    handleChange,
-    values,
-    errors,
-    touched,
-    resetForm,
-    setValues,
-    setFieldValue,
-  } = useFormik({
-    initialValues: {
-      customer_name: '',
-      company_code: '',
-      mobile_no: '',
-      address: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      isLoader: false,
-    },
-    validationSchema: operatorSchema,
-    onSubmit: values => {
-      handleCreateCustomer(values)
-    },
-  })
+  const { handleSubmit, handleChange, values, errors, touched, setFieldValue } =
+    useFormik({
+      initialValues: {
+        customer_name: '',
+        company_code: '',
+        mobile_no: '',
+        address: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        isLoader: false,
+      },
+      validationSchema: operatorSchema,
+      onSubmit: values => {
+        handleCreateCustomer(values)
+      },
+    })
 
   const handleCreateCustomer = data => {
     setFieldValue('isLoader', true)
@@ -168,7 +156,7 @@ export default function AddSuperAdminCustomerModal({
             <input
               name="address"
               className={classes.input}
-              placeholder="Enter operator name"
+              placeholder="Enter your address"
               onChange={handleChange}
               value={values.address}
               maxLength="300"

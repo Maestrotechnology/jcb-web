@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import classes from './Layout.module.css'
-import DashboardImage from '../Assets/Icons/dashboard.png'
+import UserImage from '../Assets/Icons/user_profile.png'
+import LogoutImage from '../Assets/Icons/logout_icon.png'
+import DashboardImage from '../Assets/Icons/dashboard.svg'
 import VehicleImage from '../Assets/Icons/vehicle.png'
 import OperatorImage from '../Assets/Icons/operator.png'
 import CustomeImage from '../Assets/Icons/customer.png'
 import WorkReportImage from '../Assets/Icons/work_report.png'
 import SearchImage from '../Assets/Icons/search.png'
+import ChargeSettingImage from '../Assets/Icons/charge_setting.svg'
+import DeviceImage from '../Assets/Icons/devices.svg'
 import toggle from '../Assets/Icons/toggler1.png'
 import { Dropdown, Offcanvas } from 'react-bootstrap'
 import LogoutConfirmationModal from '../ModalComponents/LogoutConfirmationModal'
@@ -60,7 +64,7 @@ export default function AdminDashboardLayout() {
     {
       id: 5,
       name: 'Devices',
-      icon: CustomeImage,
+      icon: DeviceImage,
       navigatePath: '/admin_dashboard/device_details',
     },
     {
@@ -72,7 +76,7 @@ export default function AdminDashboardLayout() {
     {
       id: 7,
       name: 'Charge Setting',
-      icon: CustomeImage,
+      icon: ChargeSettingImage,
       navigatePath: '/admin_dashboard/charge_setting_details',
     },
   ]
@@ -206,15 +210,31 @@ export default function AdminDashboardLayout() {
                   <Dropdown.Toggle variant="white">
                     <img
                       className={classes.profileImg}
-                      src={DashboardImage}
+                      src={UserImage}
                       alt="profile"
                     />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item className="text-center" eventKey="profile">
+                    <Dropdown.Item
+                      className="text-center d-flex justify-content-center"
+                      eventKey="profile"
+                    >
+                      <img
+                        src={UserImage}
+                        className={classes.menuIcon + ' me-1'}
+                        alt="logout_image"
+                      />
                       Profile
                     </Dropdown.Item>
-                    <Dropdown.Item className="text-center" eventKey="logout">
+                    <Dropdown.Item
+                      className="text-center d-flex justify-content-center"
+                      eventKey="logout"
+                    >
+                      <img
+                        src={LogoutImage}
+                        className={classes.menuIcon + ' me-1'}
+                        alt="logout_image"
+                      />
                       Logout
                     </Dropdown.Item>
                   </Dropdown.Menu>

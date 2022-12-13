@@ -10,7 +10,9 @@ export const AuthPrivateRoute = () => {
       to={
         parseInt(isAdminOrOperator?.user_type) === 2
           ? '/admin_dashboard'
-          : '/superadmin_dashboard'
+          : parseInt(isAdminOrOperator?.user_type) === 1
+          ? '/superadmin_dashboard'
+          : '/'
       }
     />
   ) : (

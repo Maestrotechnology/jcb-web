@@ -27,31 +27,23 @@ const operatorSchema = Yup.object({
 export default function AddOperatorModal({ show, close, handleListOperator }) {
   const handleFileUpload = useRef(null)
 
-  const {
-    handleSubmit,
-    handleChange,
-    values,
-    errors,
-    touched,
-    resetForm,
-    setValues,
-    setFieldValue,
-  } = useFormik({
-    initialValues: {
-      operator_name: '',
-      mobile: '',
-      address: '',
-      image: '',
-      password: '',
-      confirmPassword: '',
-      imageUploadStatus: false,
-      isLoader: false,
-    },
-    validationSchema: operatorSchema,
-    onSubmit: values => {
-      handleCreateOpeartor(values)
-    },
-  })
+  const { handleSubmit, handleChange, values, errors, touched, setFieldValue } =
+    useFormik({
+      initialValues: {
+        operator_name: '',
+        mobile: '',
+        address: '',
+        image: '',
+        password: '',
+        confirmPassword: '',
+        imageUploadStatus: false,
+        isLoader: false,
+      },
+      validationSchema: operatorSchema,
+      onSubmit: values => {
+        handleCreateOpeartor(values)
+      },
+    })
 
   const handleCreateOpeartor = data => {
     setFieldValue('isLoader', true)
@@ -76,8 +68,6 @@ export default function AddOperatorModal({ show, close, handleListOperator }) {
       })
       .finally(() => setFieldValue('isLoader', false))
   }
-
-  console.log(values.image, '==image')
 
   return (
     <Modal show={show} size="md" centered>
@@ -204,7 +194,6 @@ export default function AddOperatorModal({ show, close, handleListOperator }) {
               name="image"
               style={{ display: 'none' }}
               onChange={e => {
-                console.log('test')
                 setFieldValue('image', e.target.files[0])
                 handleFileUpload.current.value = ''
               }}

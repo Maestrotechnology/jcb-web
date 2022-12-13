@@ -180,7 +180,6 @@ export default function EditOperatorModal({
               accept="image/*"
               style={{ display: 'none' }}
               onChange={e => {
-                console.log('test')
                 setFieldValue('image', e.target.files[0])
                 handleFileUpload.current.value = ''
               }}

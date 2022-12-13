@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import classes from './Auth.module.css'
 import PasswordLock from '../Assets/Icons/password_lock.png'
 import PasswordUnlock from '../Assets/Icons/password_unlock.svg'
@@ -17,9 +17,10 @@ const LoginSchema = Yup.object({
   mobile: Yup.string()
     .matches(MOBILE_REGEX, 'Mobile number is Invalid')
     .required('Mobile number is required'),
-  companyCode: Yup.string()
-    .matches(SPECIAL_CHARACTER_REGEX, 'Enter valid company code')
-    .required('Company code is required'),
+  companyCode: Yup.string().matches(
+    SPECIAL_CHARACTER_REGEX,
+    'Enter valid company code'
+  ),
   password: Yup.string()
     .min(8, 'Password must be 8 characters')
     .required('Password is required'),
@@ -46,7 +47,9 @@ export default function Signin() {
     setFieldValue('isLoader', true)
     let formData = new FormData()
     formData.append('username', data.mobile)
-    formData.append('company_code', data.companyCode)
+    if (data.companyCode) {
+      formData.append('company_code', data.companyCode)
+    }
     formData.append('password', data.password)
     loginService(formData)
       .then(res => {
@@ -54,7 +57,9 @@ export default function Signin() {
         navigate(
           res?.data?.user_type === 2
             ? '/admin_dashboard'
-            : '/superadmin_dashboard'
+            : res?.data?.user_type === 1
+            ? '/superadmin_dashboard'
+            : '/'
         )
         toast('Login successfully!!!', { type: 'success' })
       })
@@ -131,6 +136,7 @@ export default function Signin() {
             }
           >
             <img
+              className={classes.passwordIcon}
               src={values.isShowPassword ? PasswordUnlock : PasswordLock}
               alt="password"
             />

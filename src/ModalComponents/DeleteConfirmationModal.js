@@ -9,6 +9,8 @@ export default function DeleteConfirmationModal({
   handleDeleteOperator,
   handleDeleteDevice,
   handleDeleteChargeSetting,
+  handleSuperAdminDeleteCustomer,
+  handleSuperAdminDeleteDevice,
   delete_id,
 }) {
   const { pathname } = useLocation()
@@ -22,6 +24,10 @@ export default function DeleteConfirmationModal({
       handleDeleteDevice(delete_id)
     } else if (pathname === '/admin_dashboard/charge_setting_details') {
       handleDeleteChargeSetting(delete_id)
+    } else if (pathname === '/superadmin_dashboard') {
+      handleSuperAdminDeleteCustomer(delete_id)
+    } else if (pathname === '/superadmin_dashboard/devices') {
+      handleSuperAdminDeleteDevice(delete_id)
     }
     close()
   }
