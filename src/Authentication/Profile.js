@@ -128,14 +128,21 @@ export default function Profile() {
         <p
           className={classes.editTxt}
           onClick={() => {
-            setFieldValue('isEditProfile', true)
+            setValues({
+              ...values,
+              name: loginUserData?.name || '',
+              email: loginUserData?.email || '',
+              mobile: loginUserData?.mobile_no || '',
+              company_code: loginUserData?.code || '',
+              address: loginUserData?.address || '',
+              isEditProfile: !values.isEditProfile,
+            })
           }}
         >
           <img src={EditImage} alt="edit_icon" className="me-1" /> Edit
         </p>
       </div>
       <div className="row">
-
         <div className="col-md-4 col-lg-3 col-sm-6 col-12 my-2">
           <p className={classes.label}>
             Name <span className="inputErrorTxt">*</span>

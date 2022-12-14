@@ -26,6 +26,10 @@ export const updateProfileService = data => {
   return axios.put('company_admin/update_company_admin', data)
 }
 
+export const resetPasswordService = data => {
+  return axios.post('reset_password', data)
+}
+
 // Admin dashboard service
 
 export const dashboardService = () => {

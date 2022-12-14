@@ -8,6 +8,7 @@ import { changePasswordService } from '../Services/Services'
 import CancelImage from '../Assets/Icons/rounded_cancel.png'
 import HidePassword from '../Assets/Icons/password_hide.svg'
 import OpenPassword from '../Assets/Icons/password_open.svg'
+import Loader from '../Loader'
 
 const changePasswordSchema = Yup.object({
   new_password: Yup.string()
@@ -26,6 +27,7 @@ export default function ChangePasswordModal({ show, close }) {
         confirm_password: '',
         isShowPassword: false,
         isShowConfirmPassword: false,
+        isLoader: false,
       },
       validationSchema: changePasswordSchema,
       onSubmit: values => {
@@ -34,6 +36,7 @@ export default function ChangePasswordModal({ show, close }) {
     })
 
   const handleChangePassword = data => {
+    setFieldValue('isLoader', true)
     let formData = new FormData()
     formData.append('new_password', data.new_password)
     formData.append('confirm_password', data.confirm_password)
@@ -49,87 +52,93 @@ export default function ChangePasswordModal({ show, close }) {
           toast('Something went wrong!!', { type: 'error' })
         }
       })
+      .finally(() => setFieldValue('isLoader', false))
   }
   return (
-    <Modal show={show} size="md" centered>
-      <Modal.Body>
-        <div className={classes.titleContainer}>
-          <p className={classes.title}>Change password</p>
-          <img
-            src={CancelImage}
-            className={classes.cancelImage}
-            onClick={close}
-            alt="cancel icon"
-          />
-        </div>
-        <div className="row">
-          <div className="col-md-12 col-sm-12 my-2">
-            <p className={classes.label}>
-              New password <span className="inputErrorTxt">*</span>
-            </p>
-            <div className={classes.changePwdInputContainer}>
-              <input
-                type={values.isShowPassword ? 'text' : 'password'}
-                name="new_password"
-                className={classes.changePwdInput}
-                placeholder="Enter new password"
-                onChange={handleChange}
-                value={values.new_password}
-                maxLength="20"
-              />
-              <img
-                src={values.isShowPassword ? OpenPassword : HidePassword}
-                alt="password"
-                className={classes.pwdIcon}
-                onClick={() => {
-                  setFieldValue('isShowPassword', !values.isShowPassword)
-                }}
-              />
+    <>
+      <Loader isLoader={values.isLoader} />
+      <Modal show={show} size="md" centered>
+        <Modal.Body>
+          <div className={classes.titleContainer}>
+            <p className={classes.title}>Change password</p>
+            <img
+              src={CancelImage}
+              className={classes.cancelImage}
+              onClick={close}
+              alt="cancel icon"
+            />
+          </div>
+          <div className="row">
+            <div className="col-md-12 col-sm-12 my-2">
+              <p className={classes.label}>
+                New password <span className="inputErrorTxt">*</span>
+              </p>
+              <div className={classes.changePwdInputContainer}>
+                <input
+                  type={values.isShowPassword ? 'text' : 'password'}
+                  name="new_password"
+                  className={classes.changePwdInput}
+                  placeholder="Enter new password"
+                  onChange={handleChange}
+                  value={values.new_password}
+                  maxLength="50"
+                />
+                <img
+                  src={values.isShowPassword ? OpenPassword : HidePassword}
+                  alt="password"
+                  className={classes.pwdIcon}
+                  onClick={() => {
+                    setFieldValue('isShowPassword', !values.isShowPassword)
+                  }}
+                />
+              </div>
+              {touched.new_password && errors.new_password && (
+                <p className="inputErrorTxt mb-0">{errors.new_password}</p>
+              )}
             </div>
-            {touched.new_password && errors.new_password && (
-              <p className="inputErrorTxt mb-0">{errors.new_password}</p>
-            )}
-          </div>
-          <div className="col-md-12 col-sm-12 my-2">
-            <p className={classes.label}>
-              Confirm password <span className="inputErrorTxt">*</span>
-            </p>
-            <div className={classes.changePwdInputContainer}>
-              <input
-                type={values.isShowConfirmPassword ? 'text' : 'password'}
-                name="confirm_password"
-                className={classes.changePwdInput}
-                placeholder="Enter confirm password"
-                onChange={handleChange}
-                value={values.confirm_password}
-                maxLength="20"
-              />
-              <img
-                src={values.isShowConfirmPassword ? OpenPassword : HidePassword}
-                alt="password"
-                onClick={() => {
-                  setFieldValue(
-                    'isShowConfirmPassword',
-                    !values.isShowConfirmPassword
-                  )
-                }}
-                className={classes.pwdIcon}
-              />
+            <div className="col-md-12 col-sm-12 my-2">
+              <p className={classes.label}>
+                Confirm password <span className="inputErrorTxt">*</span>
+              </p>
+              <div className={classes.changePwdInputContainer}>
+                <input
+                  type={values.isShowConfirmPassword ? 'text' : 'password'}
+                  name="confirm_password"
+                  className={classes.changePwdInput}
+                  placeholder="Enter confirm password"
+                  onChange={handleChange}
+                  value={values.confirm_password}
+                  maxLength="50"
+                />
+                <img
+                  src={
+                    values.isShowConfirmPassword ? OpenPassword : HidePassword
+                  }
+                  alt="password"
+                  onClick={() => {
+                    setFieldValue(
+                      'isShowConfirmPassword',
+                      !values.isShowConfirmPassword
+                    )
+                  }}
+                  className={classes.pwdIcon}
+                />
+              </div>
+              {touched.confirm_password && errors.confirm_password && (
+                <p className="inputErrorTxt mb-0">{errors.confirm_password}</p>
+              )}
             </div>
-            {touched.confirm_password && errors.confirm_password && (
-              <p className="inputErrorTxt mb-0">{errors.confirm_password}</p>
-            )}
+            <div className="col-md-12 d-flex justify-content-end mt-2">
+              <button className="cancelBtn" onClick={close}>
+                Cancel
+              </button>
+              <button className="saveBtn" onClick={handleSubmit}>
+                Save
+              </button>
+            </div>
           </div>
-          <div className="col-md-12 d-flex justify-content-end mt-2">
-            <button className="cancelBtn" onClick={close}>
-              Cancel
-            </button>
-            <button className="saveBtn" onClick={handleSubmit}>
-              Save
-            </button>
-          </div>
-        </div>
-      </Modal.Body>
-    </Modal>
+        </Modal.Body>
+      </Modal>
+    </>
   )
 }

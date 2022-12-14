@@ -9,6 +9,7 @@ import Loader from '../../Loader'
 import ReactPaginate from 'react-paginate'
 import LeftArrowImage from '../../Assets/Icons/paginate_left_arrow.png'
 import RightArrowImage from '../../Assets/Icons/paginate_right_arrow.png'
+import ViewImage from '../../Assets/Icons/view_image.png'
 import {
   changePermissionService,
   deleteOperatorService,
@@ -18,6 +19,7 @@ import { useOutletContext } from 'react-router-dom'
 import AddOperatorModal from '../../ModalComponents/AddOperatorModal'
 import EditOperatorModal from '../../ModalComponents/EditOperatorModal'
 import DeleteConfirmationModal from '../../ModalComponents/DeleteConfirmationModal'
+import ViewImagesModal from '../../ModalComponents/ViewImagesModal'
 export default function Operator() {
   const { searchData, isAddModal, setIsAddModal } = useOutletContext()
   const [isEditModal, setIsEditModal] = useState({ show: false, data: null })
@@ -25,6 +27,7 @@ export default function Operator() {
   const [operatorData, setOperatorData] = useState([])
   const [page, setPage] = useState(0)
   const [isDelete, setIsDelete] = useState({ show: false, delete_id: '' })
+  const [isViewImage, setIsViewImage] = useState({ show: false, url: '' })
 
   useEffect(() => {
     handleListOperator()
@@ -37,6 +40,7 @@ export default function Operator() {
     listOperatorService(formData, pageNum)
       .then(res => {
         setOperatorData(res.data)
+        setPage(pageNum - 1)
       })
       .catch(err => {
         if (err?.response?.data?.detail) {
@@ -113,6 +117,22 @@ export default function Operator() {
             })
           }
           editData={isEditModal.data}
+          handleListOperator={handleListOperator}
+        />
+      ) : null}
+
+      {isViewImage.show ? (
+        <ViewImagesModal
+          show={isViewImage.show}
+          close={() => {
+            setIsViewImage(prev => {
+              return {
+                ...prev,
+                show: false,
+              }
+            })
+          }}
+          imageUrl={isViewImage.url}
         />
       ) : null}
 
@@ -132,7 +152,7 @@ export default function Operator() {
         />
       ) : null}
 
-      <Table striped bordered hover responsive>
+      <Table striped bordered responsive>
         <thead className={classes.tableResponsive}>
           <tr className="text-center">
             <th>S.No</th>
@@ -141,6 +161,7 @@ export default function Operator() {
             <th>Join Date</th>
             <th>Address</th>
             <th>Change Vehicle Charge</th>
+            <th>Proof Image</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -168,6 +189,19 @@ export default function Operator() {
                   isChecked={ele?.permission_status === 0 ? false : true}
                   handleChange={({ status }) => {
                     handleChangePermissionStatus(ele.operator_id, status)
+                  }}
+                />
+              </td>
+              <td>
+                <img
+                  src={ViewImage}
+                  alt="view icon"
+                  className={classes.viewImgIcon}
+                  onClick={() => {
+                    setIsViewImage({
+                      show: true,
+                      url: ele.license_img,
+                    })
                   }}
                 />
               </td>

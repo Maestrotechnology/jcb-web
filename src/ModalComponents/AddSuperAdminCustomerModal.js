@@ -12,6 +12,7 @@ import {
   MOBILE_REGEX,
   NAME_REGEX,
 } from '../Utilities/Constants'
+import Loader from '../Loader'
 const operatorSchema = Yup.object({
   customer_name: Yup.string()
     .matches(NAME_REGEX, 'Enter valid name')
@@ -83,144 +84,147 @@ export default function AddSuperAdminCustomerModal({
   }
 
   return (
-    <Modal show={show} size="lg" centered>
-      <Modal.Body>
-        <div className={classes.titleContainer}>
-          <p className={classes.title}>Customer</p>
-          <img
-            src={CancelImage}
-            className={classes.cancelImage}
-            onClick={close}
-            alt="cancel icon"
-          />
-        </div>
-        <div className="row">
-          <div className="col-md-6 col-sm-12 my-2">
-            <p className={classes.label}>
-              Customer Name <span className="inputErrorTxt mb-0">*</span>
-            </p>
-            <input
-              name="customer_name"
-              className={classes.input}
-              placeholder="Enter customer name"
-              onChange={handleChange}
-              value={values.customer_name}
-              maxLength="15"
+    <>
+      <Loader isLoader={values.isLoader} />
+      <Modal show={show} size="lg" centered>
+        <Modal.Body>
+          <div className={classes.titleContainer}>
+            <p className={classes.title}>Customer</p>
+            <img
+              src={CancelImage}
+              className={classes.cancelImage}
+              onClick={close}
+              alt="cancel icon"
             />
-            {touched.customer_name && errors.customer_name && (
-              <p className="inputErrorTxt mb-0">{errors.customer_name}</p>
-            )}
           </div>
-          <div className="col-md-6 col-sm-12 my-2">
-            <p className={classes.label}>
-              Company Code <span className="inputErrorTxt mb-0">*</span>
-            </p>
-            <input
-              name="company_code"
-              className={classes.input}
-              placeholder="Enter company code"
-              onChange={handleChange}
-              value={values.company_code}
-              maxLength="25"
-            />
-            {touched.company_code && errors.company_code && (
-              <p className="inputErrorTxt mb-0">{errors.company_code}</p>
-            )}
+          <div className="row">
+            <div className="col-md-6 col-sm-12 my-2">
+              <p className={classes.label}>
+                Customer Name <span className="inputErrorTxt mb-0">*</span>
+              </p>
+              <input
+                name="customer_name"
+                className={classes.input}
+                placeholder="Enter customer name"
+                onChange={handleChange}
+                value={values.customer_name}
+                maxLength="15"
+              />
+              {touched.customer_name && errors.customer_name && (
+                <p className="inputErrorTxt mb-0">{errors.customer_name}</p>
+              )}
+            </div>
+            <div className="col-md-6 col-sm-12 my-2">
+              <p className={classes.label}>
+                Company Code <span className="inputErrorTxt mb-0">*</span>
+              </p>
+              <input
+                name="company_code"
+                className={classes.input}
+                placeholder="Enter company code"
+                onChange={handleChange}
+                value={values.company_code}
+                maxLength="25"
+              />
+              {touched.company_code && errors.company_code && (
+                <p className="inputErrorTxt mb-0">{errors.company_code}</p>
+              )}
+            </div>
+            <div className="col-md-6 col-sm-12 my-2">
+              <p className={classes.label}>
+                Mobile number <span className="inputErrorTxt mb-0">*</span>
+              </p>
+              <input
+                name="mobile_no"
+                className={classes.input}
+                placeholder="Enter mobile number"
+                onChange={handleChange}
+                value={values.mobile_no}
+                maxLength="10"
+                onKeyPress={e => {
+                  if (e.key === '0' || parseInt(e.key)) {
+                  } else {
+                    e.preventDefault()
+                  }
+                }}
+              />
+              {touched.mobile_no && errors.mobile_no && (
+                <p className="inputErrorTxt mb-0">{errors.mobile_no}</p>
+              )}
+            </div>
+            <div className="col-md-6 col-sm-12 my-2">
+              <p className={classes.label}>
+                Address <span className="inputErrorTxt mb-0">*</span>
+              </p>
+              <input
+                name="address"
+                className={classes.input}
+                placeholder="Enter your address"
+                onChange={handleChange}
+                value={values.address}
+                maxLength="300"
+              />
+              {touched.address && errors.address && (
+                <p className="inputErrorTxt mb-0">{errors.address}</p>
+              )}
+            </div>
+            <div className="col-md-6 col-sm-12 my-2">
+              <p className={classes.label}>Email</p>
+              <input
+                name="email"
+                className={classes.input}
+                placeholder="Enter your email"
+                onChange={handleChange}
+                value={values.email}
+                maxLength="300"
+              />
+              {touched.email && errors.email && (
+                <p className="inputErrorTxt mb-0">{errors.email}</p>
+              )}
+            </div>
+            <div className="col-md-6 col-sm-12 my-2">
+              <p className={classes.label}>
+                Password <span className="inputErrorTxt mb-0">*</span>
+              </p>
+              <input
+                name="password"
+                className={classes.input}
+                placeholder="Enter your password"
+                onChange={handleChange}
+                value={values.password}
+                maxLength="300"
+              />
+              {touched.password && errors.password && (
+                <p className="inputErrorTxt mb-0">{errors.password}</p>
+              )}
+            </div>
+            <div className="col-md-6 col-sm-12 my-2">
+              <p className={classes.label}>
+                Confirm Password <span className="inputErrorTxt mb-0">*</span>
+              </p>
+              <input
+                name="confirmPassword"
+                className={classes.input}
+                placeholder="Enter confirm passsword"
+                onChange={handleChange}
+                value={values.confirmPassword}
+                maxLength="300"
+              />
+              {touched.confirmPassword && errors.confirmPassword && (
+                <p className="inputErrorTxt mb-0">{errors.confirmPassword}</p>
+              )}
+            </div>
+            <div className="col-md-12 d-flex justify-content-end">
+              <button className="cancelBtn" onClick={close}>
+                Cancel
+              </button>
+              <button className="saveBtn" onClick={handleSubmit}>
+                Save
+              </button>
+            </div>
           </div>
-          <div className="col-md-6 col-sm-12 my-2">
-            <p className={classes.label}>
-              Mobile number <span className="inputErrorTxt mb-0">*</span>
-            </p>
-            <input
-              name="mobile_no"
-              className={classes.input}
-              placeholder="Enter mobile number"
-              onChange={handleChange}
-              value={values.mobile_no}
-              maxLength="10"
-              onKeyPress={e => {
-                if (e.key === '0' || parseInt(e.key)) {
-                } else {
-                  e.preventDefault()
-                }
-              }}
-            />
-            {touched.mobile_no && errors.mobile_no && (
-              <p className="inputErrorTxt mb-0">{errors.mobile_no}</p>
-            )}
-          </div>
-          <div className="col-md-6 col-sm-12 my-2">
-            <p className={classes.label}>
-              Address <span className="inputErrorTxt mb-0">*</span>
-            </p>
-            <input
-              name="address"
-              className={classes.input}
-              placeholder="Enter your address"
-              onChange={handleChange}
-              value={values.address}
-              maxLength="300"
-            />
-            {touched.address && errors.address && (
-              <p className="inputErrorTxt mb-0">{errors.address}</p>
-            )}
-          </div>
-          <div className="col-md-6 col-sm-12 my-2">
-            <p className={classes.label}>Email</p>
-            <input
-              name="email"
-              className={classes.input}
-              placeholder="Enter your email"
-              onChange={handleChange}
-              value={values.email}
-              maxLength="300"
-            />
-            {touched.email && errors.email && (
-              <p className="inputErrorTxt mb-0">{errors.email}</p>
-            )}
-          </div>
-          <div className="col-md-6 col-sm-12 my-2">
-            <p className={classes.label}>
-              Password <span className="inputErrorTxt mb-0">*</span>
-            </p>
-            <input
-              name="password"
-              className={classes.input}
-              placeholder="Enter your password"
-              onChange={handleChange}
-              value={values.password}
-              maxLength="300"
-            />
-            {touched.password && errors.password && (
-              <p className="inputErrorTxt mb-0">{errors.password}</p>
-            )}
-          </div>
-          <div className="col-md-6 col-sm-12 my-2">
-            <p className={classes.label}>
-              Confirm Password <span className="inputErrorTxt mb-0">*</span>
-            </p>
-            <input
-              name="confirmPassword"
-              className={classes.input}
-              placeholder="Enter confirm passsword"
-              onChange={handleChange}
-              value={values.confirmPassword}
-              maxLength="300"
-            />
-            {touched.confirmPassword && errors.confirmPassword && (
-              <p className="inputErrorTxt mb-0">{errors.confirmPassword}</p>
-            )}
-          </div>
-          <div className="col-md-12 d-flex justify-content-end">
-            <button className="cancelBtn" onClick={close}>
-              Cancel
-            </button>
-            <button className="saveBtn" onClick={handleSubmit}>
-              Save
-            </button>
-          </div>
-        </div>
-      </Modal.Body>
-    </Modal>
+        </Modal.Body>
+      </Modal>
+    </>
   )
 }

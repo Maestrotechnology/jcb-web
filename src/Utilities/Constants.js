@@ -10,3 +10,13 @@ export const SPECIAL_CHARACTER_REGEX = /^[A-Za-z0-9 ]+$/
 export const toInputUppercase = e => {
   e.target.value = ('' + e.target.value).toUpperCase()
 }
+export const VEHICLE_NUMBER_REGEX = /^[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}$/
+
+export const handleAmountStyle = amt => {
+  amt = amt.toString()
+  var lastThree = amt.substring(amt.length - 3)
+  var otherNumbers = amt.substring(0, amt.length - 3)
+  if (otherNumbers != '') lastThree = ',' + lastThree
+  var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree
+  return res
+}

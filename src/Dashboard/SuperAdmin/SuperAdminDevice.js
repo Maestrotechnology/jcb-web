@@ -12,9 +12,11 @@ import DeleteConfirmationModal from '../../ModalComponents/DeleteConfirmationMod
 import toast from 'react-hot-toast'
 import EditImage from '../../Assets/Icons/table_edit.png'
 import DeleteImage from '../../Assets/Icons/table_delete.png'
+import ViewImage from '../../Assets/Icons/view_icon.png'
 import EditDeviceModal from '../../ModalComponents/EditDeviceModal'
 import LeftArrowImage from '../../Assets/Icons/paginate_left_arrow.png'
 import RightArrowImage from '../../Assets/Icons/paginate_right_arrow.png'
+import ViewSuperAdminDeviceModal from '../../ModalComponents/ViewSuperAdminDeviceModal'
 const wrokReportSchema = Yup.object({
   device_name: Yup.string().matches(
     SPECIAL_CHARACTER_REGEX,
@@ -43,6 +45,7 @@ export default function SuperAdminDevice() {
       deviceData: [],
       isEdit: { show: false, data: null },
       isDelete: { show: false, delete_id: '' },
+      isView: { show: false, data: null },
       isLoader: false,
       page: 0,
     },
@@ -66,7 +69,11 @@ export default function SuperAdminDevice() {
     formData.append('device_code', '')
     listDeviceService(formData, pageNum)
       .then(res => {
-        setFieldValue('deviceData', res.data)
+        setValues({
+          ...values,
+          deviceData: res.data,
+          page: pageNum - 1,
+        })
       })
       .catch(err => {
         if (err?.response?.data?.detail) {
@@ -118,6 +125,18 @@ export default function SuperAdminDevice() {
             })
           }
           editData={values.isEdit.data}
+        />
+      ) : null}
+      {values.isView.show ? (
+        <ViewSuperAdminDeviceModal
+          show={values.isView.show}
+          close={() =>
+            setFieldValue('isView', {
+              ...values.isView,
+              show: false,
+            })
+          }
+          viewData={values.isView.data}
         />
       ) : null}
       {values.isDelete.show ? (
@@ -189,14 +208,14 @@ export default function SuperAdminDevice() {
             </button>
           </div>
         </div>
-        <Table striped bordered hover responsive className="mt-4">
+        <Table striped bordered responsive className="mt-4">
           <thead className={classes.tableResponsive}>
             <tr className="text-center">
               <th>S.No</th>
               <th>Date</th>
               <th>Device Name</th>
               <th>Device Code</th>
-              {/* <th>Action</th> */}
+              <th>Action</th>
             </tr>
           </thead>
           <tbody className={classes.tableBody}>
@@ -209,8 +228,19 @@ export default function SuperAdminDevice() {
                 <td>{ele.created_at}</td>
                 <td>{ele.device_name}</td>
                 <td>{ele.device_code}</td>
-                {/* <td>
+                <td>
                   <img
+                    className={classes.actionIcons}
+                    src={ViewImage}
+                    alt="view icon"
+                    onClick={() =>
+                      setFieldValue('isView', {
+                        show: true,
+                        data: ele,
+                      })
+                    }
+                  />
+                  {/* <img
                     className={classes.actionIcons}
                     src={EditImage}
                     alt="edit icon"
@@ -231,8 +261,8 @@ export default function SuperAdminDevice() {
                         delete_id: ele.device_id,
                       })
                     }}
-                  />
-                </td> */}
+                  /> */}
+                </td>
               </tr>
             ))}
             {values?.deviceData?.items?.length === 0 ? (

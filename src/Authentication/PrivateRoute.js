@@ -2,10 +2,10 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { getCookie } from '../Utilities/Cookies'
 
 export const AuthPrivateRoute = () => {
-  let isAdminOrOperator = getCookie('loginData')
-    ? JSON.parse(getCookie('loginData'))
+  let isAdminOrOperator = getCookie('jcbLoginData')
+    ? JSON.parse(getCookie('jcbLoginData'))
     : null
-  return getCookie('loginData') !== '' ? (
+  return getCookie('jcbLoginData') !== '' ? (
     <Navigate
       to={
         parseInt(isAdminOrOperator?.user_type) === 2
@@ -20,9 +20,9 @@ export const AuthPrivateRoute = () => {
   )
 }
 export const AdminDashboardPrivateRoute = () => {
-  return getCookie('loginData') === '' ? <Navigate to="/" /> : <Outlet />
+  return getCookie('jcbLoginData') === '' ? <Navigate to="/" /> : <Outlet />
 }
 
 export const SuperAdminDashboardPrivateRoute = () => {
-  return getCookie('loginData') === '' ? <Navigate to="/" /> : <Outlet />
+  return getCookie('jcbLoginData') === '' ? <Navigate to="/" /> : <Outlet />
 }

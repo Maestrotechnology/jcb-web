@@ -3,7 +3,7 @@ import { Table } from 'react-bootstrap'
 import classes from './Admin.module.css'
 export default function Customer() {
   return (
-    <Table striped bordered hover responsive>
+    <Table striped bordered responsive>
       <thead className={classes.tableResponsive}>
         <tr className="text-center">
           <th>S.No</th>

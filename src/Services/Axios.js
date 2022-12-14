@@ -1,6 +1,6 @@
-import axios from "axios"
-import { baseUrl } from "../Utilities/Constants"
-import { getCookie, setCookie } from "../Utilities/Cookies"
+import axios from 'axios'
+import { baseUrl } from '../Utilities/Constants'
+import { getCookie, setCookie } from '../Utilities/Cookies'
 
 const instance = axios.create({
   baseURL: baseUrl,
@@ -8,8 +8,9 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   request => {
-    const userlog =
-      getCookie('loginData') ? JSON.parse(getCookie('loginData')) : null
+    const userlog = getCookie('jcbLoginData')
+      ? JSON.parse(getCookie('jcbLoginData'))
+      : null
     if (userlog) {
       request.headers['Authorization'] = `Bearer ${userlog.access_token}`
     }
@@ -24,7 +25,7 @@ instance.interceptors.response.use(
   },
   error => {
     if (error?.response?.status === 403) {
-      setCookie('loginData', null, 0)
+      setCookie('jcbLoginData', null, 0)
       window.location.replace('/')
     } else {
       return Promise.reject(error)

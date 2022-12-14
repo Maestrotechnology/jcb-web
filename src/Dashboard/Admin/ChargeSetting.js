@@ -89,7 +89,7 @@ export default function ChargeSetting() {
         />
       ) : null}
 
-      <Table striped bordered hover responsive className="mt-4">
+      <Table striped bordered responsive className="mt-4">
         <thead className={classes.tableResponsive}>
           <tr className="text-center">
             <th>S.No</th>

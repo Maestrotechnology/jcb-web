@@ -53,14 +53,14 @@ export default function Otp() {
     )
   }
   const handleOtp = data => {
-    setFieldValue("isLoader", true)
-    let formData = new FormData();
-    formData.append('reset_key', data.reset_key);
-    formData.append('otp', data.otp);
+    setFieldValue('isLoader', true)
+    let formData = new FormData()
+    formData.append('reset_key', data.reset_key)
+    formData.append('otp', data.otp)
     verifyOtpService(formData)
       .then(res => {
-        toast(res.data.msg, { type: "success" });
-        navigate('/');
+        toast(res.data.msg, { type: 'success' })
+        navigate('/change_password', { state: data.reset_key })
       })
       .catch(err => {
         if (err?.response?.data?.detail) {
@@ -68,16 +68,17 @@ export default function Otp() {
         } else {
           toast('Something went wrong!!', { type: 'error' })
         }
-      }).finally(() => setFieldValue("isLoader", false))
-  };
+      })
+      .finally(() => setFieldValue('isLoader', false))
+  }
 
   const handleResendOtp = () => {
-    let formData = new FormData();
-    formData.append('mobile_no', values?.resend_otp_mobile);
+    let formData = new FormData()
+    formData.append('mobile_no', values?.resend_otp_mobile)
     sendOtpService(formData)
       .then(res => {
-        toast(res.data.msg, { type: "success" });
-        setFieldValue('reset_key', res.data.reset_key);
+        toast(res.data.msg, { type: 'success' })
+        setFieldValue('reset_key', res.data.reset_key)
       })
       .catch(err => {
         if (err?.response?.data?.detail) {
@@ -86,8 +87,7 @@ export default function Otp() {
           toast('Something went wrong!!', { type: 'error' })
         }
       })
-  };
-
+  }
 
   return (
     <>
@@ -111,7 +111,7 @@ export default function Otp() {
                 e.preventDefault()
               }
             }}
-            maxLength="10"
+            maxLength="4"
           />
           <div className={classes.iconContainer}>
             <img src={Phone} alt="call" />
@@ -137,8 +137,8 @@ export default function Otp() {
             {values.resendOtpTimer === 0
               ? 'Resend OTP'
               : `Resend Otp in ${secondsToMinutesAndSeconds(
-                values.resendOtpTimer
-              )}`}
+                  values.resendOtpTimer
+                )}`}
           </p>
         </div>
         <button

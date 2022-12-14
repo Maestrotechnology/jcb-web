@@ -7,6 +7,7 @@ import { createVehicleChargeService } from '../Services/Services'
 import toast from 'react-hot-toast'
 import { NAME_REGEX, NUMBER_REGEX } from '../Utilities/Constants'
 import * as Yup from 'yup'
+import Loader from '../Loader'
 
 const chargeSettingSchema = Yup.object({
   type_name: Yup.string()
@@ -57,66 +58,69 @@ export default function AddChargeSettingModal({
   }
 
   return (
-    <Modal show={show} size="md" centered>
-      <Modal.Body>
-        <div className={classes.titleContainer}>
-          <p className={classes.title}>Charge Setting</p>
-          <img
-            src={CancelImage}
-            className={classes.cancelImage}
-            onClick={close}
-            alt="cancel icon"
-          />
-        </div>
-        <div className="row">
-          <div className="col-md-12 col-sm-12 my-2">
-            <p className={classes.label}>
-              Charge Type Name <span className="inputErrorTxt">*</span>
-            </p>
-            <input
-              name="type_name"
-              className={classes.input}
-              placeholder="Enter charge type name"
-              onChange={handleChange}
-              value={values.type_name}
-              maxLength="20"
+    <>
+      <Loader isLoader={values.isLoader} />
+      <Modal show={show} size="md" centered>
+        <Modal.Body>
+          <div className={classes.titleContainer}>
+            <p className={classes.title}>Charge Setting</p>
+            <img
+              src={CancelImage}
+              className={classes.cancelImage}
+              onClick={close}
+              alt="cancel icon"
             />
-            {touched.type_name && errors.type_name && (
-              <p className="inputErrorTxt mb-0">{errors.type_name}</p>
-            )}
           </div>
-          <div className="col-md-12 col-sm-12 my-2">
-            <p className={classes.label}>
-              Charge Amount <span className="inputErrorTxt">*</span>
-            </p>
-            <input
-              name="charge"
-              className={classes.input}
-              placeholder="Enter charge amount"
-              onChange={handleChange}
-              value={values.charge}
-              maxLength="20"
-              onKeyPress={e => {
-                if (e.key === '0' || parseInt(e.key)) {
-                } else {
-                  e.preventDefault()
-                }
-              }}
-            />
-            {touched.charge && errors.charge && (
-              <p className="inputErrorTxt mb-0">{errors.charge}</p>
-            )}
+          <div className="row">
+            <div className="col-md-12 col-sm-12 my-2">
+              <p className={classes.label}>
+                Charge Type Name <span className="inputErrorTxt">*</span>
+              </p>
+              <input
+                name="type_name"
+                className={classes.input}
+                placeholder="Enter charge type name"
+                onChange={handleChange}
+                value={values.type_name}
+                maxLength="20"
+              />
+              {touched.type_name && errors.type_name && (
+                <p className="inputErrorTxt mb-0">{errors.type_name}</p>
+              )}
+            </div>
+            <div className="col-md-12 col-sm-12 my-2">
+              <p className={classes.label}>
+                Charge Amount <span className="inputErrorTxt">*</span>
+              </p>
+              <input
+                name="charge"
+                className={classes.input}
+                placeholder="Enter charge amount"
+                onChange={handleChange}
+                value={values.charge}
+                maxLength="20"
+                onKeyPress={e => {
+                  if (e.key === '0' || parseInt(e.key)) {
+                  } else {
+                    e.preventDefault()
+                  }
+                }}
+              />
+              {touched.charge && errors.charge && (
+                <p className="inputErrorTxt mb-0">{errors.charge}</p>
+              )}
+            </div>
+            <div className="col-md-12 d-flex justify-content-end mt-2">
+              <button className="cancelBtn" onClick={close}>
+                Cancel
+              </button>
+              <button className="saveBtn" onClick={handleSubmit}>
+                Save
+              </button>
+            </div>
           </div>
-          <div className="col-md-12 d-flex justify-content-end mt-2">
-            <button className="cancelBtn" onClick={close}>
-              Cancel
-            </button>
-            <button className="saveBtn" onClick={handleSubmit}>
-              Save
-            </button>
-          </div>
-        </div>
-      </Modal.Body>
-    </Modal>
+        </Modal.Body>
+      </Modal>
+    </>
   )
 }

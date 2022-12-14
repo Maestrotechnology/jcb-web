@@ -17,7 +17,7 @@ export default function DeleteConfirmationModal({
 
   const handleDelete = () => {
     if (pathname === '/admin_dashboard/vehicle_details') {
-      handleDeleteVehicle()
+      handleDeleteVehicle(delete_id)
     } else if (pathname === '/admin_dashboard/operator_details') {
       handleDeleteOperator(delete_id)
     } else if (pathname === '/admin_dashboard/device_details') {

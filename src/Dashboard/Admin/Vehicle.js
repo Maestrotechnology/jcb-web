@@ -9,6 +9,7 @@ import {
   changeVehiclePermissionService,
   deleteVehicleService,
   listVehicleService,
+  vehicleChangeStatusService,
 } from '../../Services/Services'
 import toast from 'react-hot-toast'
 import Loader from '../../Loader'
@@ -20,6 +21,9 @@ import AddVehicleModal from '../../ModalComponents/AddVehicleModal'
 import EditVehicleModal from '../../ModalComponents/EditVehicleModal'
 import OperatorMappingListModal from '../../ModalComponents/OperatorMappingListModal'
 import DeleteConfirmationModal from '../../ModalComponents/DeleteConfirmationModal'
+import ActiveInactiveToggle from '../../ActiveInactiveToggle/ActiveInactiveToggle'
+import { handleAmountStyle } from '../../Utilities/Constants'
+
 export default function Vehicle() {
   const { searchData, isAddModal, setIsAddModal } = useOutletContext()
   const [isEditModal, setIsEditModal] = useState({ show: false, data: null })
@@ -43,6 +47,7 @@ export default function Vehicle() {
     listVehicleService(formData, pageNum)
       .then(res => {
         setVehicleData(res.data)
+        setPage(pageNum - 1)
       })
       .catch(err => {
         if (err?.response?.data?.detail) {
@@ -93,6 +98,26 @@ export default function Vehicle() {
       .finally(() => setIsLoader(false))
   }
 
+  const handleChangeStatus = (id, status) => {
+    setIsLoader(true)
+    let formData = new FormData()
+    formData.append('vehicle_id', id)
+    formData.append('status', status ? 1 : 0)
+    vehicleChangeStatusService(formData)
+      .then(res => {
+        toast(res.data, { type: 'success' })
+        handleListVehicle()
+      })
+      .catch(err => {
+        if (err?.response?.data?.detail) {
+          toast(err.response.data.detail[0].msg, { type: 'error' })
+        } else {
+          toast('Something went wrong!!', { type: 'error' })
+        }
+      })
+      .finally(() => setIsLoader(false))
+  }
+
   return (
     <>
       <Loader isLoader={isLoader} />
@@ -122,6 +147,7 @@ export default function Vehicle() {
             })
           }
           editData={isEditModal.data}
+          handleListVehicle={handleListVehicle}
         />
       ) : null}
 
@@ -157,7 +183,7 @@ export default function Vehicle() {
         />
       ) : null}
 
-      <Table striped bordered hover responsive>
+      <Table striped bordered responsive>
         <thead className={classes.tableResponsive}>
           <tr className="text-center">
             <th>S.No</th>
@@ -165,9 +191,9 @@ export default function Vehicle() {
             <th>Vehicle Type</th>
             <th>Vehicle Number</th>
             <th>Date</th>
-            <th>Per hour charge</th>
+            <th>Amount</th>
             <th>Change Vehicle Charge</th>
-            <th>Min Amount</th>
+            <th>Operator Name</th>
             <th>Status</th>
             <th>Action</th>
           </tr>
@@ -177,10 +203,16 @@ export default function Vehicle() {
             <tr className="text-center">
               <td>{(vehicleData.page - 1) * vehicleData.size + (index + 1)}</td>
               <td>{ele.vehicle_name}</td>
-              <td>JCB</td>
+              <td>{ele.vehicle_name}</td>
               <td>{ele.vehicle_no}</td>
-              <td>12-11-22</td>
-              <td>1000</td>
+              <td>{ele.created_at}</td>
+              <td>
+                {ele.charge_type !== ''
+                  ? `₹ ${handleAmountStyle(ele.charge_amount)}.00 - (${
+                      ele.charge_type
+                    })`
+                  : ele.charge_amount}
+              </td>
               <td>
                 <Toggle
                   id={index}
@@ -190,8 +222,16 @@ export default function Vehicle() {
                   }}
                 />
               </td>
-              <td>3000</td>
-              <td>{ele.status === 1 ? 'Active' : 'In Active'}</td>
+              <td>{ele.operator_name || '-'}</td>
+              <td>
+                <ActiveInactiveToggle
+                  id={index}
+                  isChecked={ele?.status === 0 ? false : true}
+                  handleChange={({ status }) => {
+                    handleChangeStatus(ele.vehicle_id, status)
+                  }}
+                />
+              </td>
               <td>
                 <img
                   className={classes.actionIcons}

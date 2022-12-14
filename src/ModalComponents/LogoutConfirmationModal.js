@@ -1,10 +1,12 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 import { setCookie } from '../Utilities/Cookies'
 
 export default function LogoutConfirmationModal({ show, close }) {
+  const navigate = useNavigate()
   const handleLogout = () => {
-    setCookie('loginData', null, null)
+    setCookie('jcbLoginData', null, null)
     close()
     window.location.reload()
   }

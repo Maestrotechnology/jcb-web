@@ -8,24 +8,42 @@ import {
 } from '../Services/Services'
 import classes from './Modal.module.css'
 import CancelImage from '../Assets/Icons/rounded_cancel.png'
+import Loader from '../Loader'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+
+const operatorMappingSchema = Yup.object({
+  selectedOperator: Yup.string().required('Operator is Required'),
+})
+
 export default function OperatorMappingListModal({
   show,
   close,
   handleListVehicle,
   vehicle_id,
 }) {
-  const [isLoader, setIsLoader] = useState(false)
-  const [operatorMappingListData, setOperatorMappingListData] = useState([])
-  const [selectedOperator, setSelectedOperator] = useState('')
   useEffect(() => {
     OperatorMappingList()
   }, [])
 
+  const { handleSubmit, errors, values, touched, setFieldValue } = useFormik({
+    initialValues: {
+      mapping_vehicle_id: vehicle_id,
+      operatorMappingList: [],
+      selectedOperator: '',
+      isLoader: false,
+    },
+    validationSchema: operatorMappingSchema,
+    onSubmit: values => {
+      handleOperatorMappingList(values)
+    },
+  })
+
   const OperatorMappingList = () => {
-    setIsLoader(true)
+    setFieldValue('isLoader', true)
     operatorMappingListService()
       .then(res => {
-        setOperatorMappingListData(res.data)
+        setFieldValue('operatorMappingList', res.data)
       })
       .catch(err => {
         if (err?.response?.data?.detail) {
@@ -34,7 +52,7 @@ export default function OperatorMappingListModal({
           toast('Something went wrong!!', { type: 'error' })
         }
       })
-      .finally(() => setIsLoader(false))
+      .finally(() => setFieldValue('isLoader', false))
   }
 
   const customStyles = {
@@ -60,11 +78,11 @@ export default function OperatorMappingListModal({
     }),
   }
 
-  const handleOperatorMappingList = () => {
-    setIsLoader(true)
+  const handleOperatorMappingList = data => {
+    setFieldValue('isLoader', true)
     let formData = new FormData()
-    formData.append('vehicle_id', parseInt(vehicle_id))
-    formData.append('operator_id', parseInt(selectedOperator))
+    formData.append('vehicle_id', parseInt(data.mapping_vehicle_id))
+    formData.append('operator_id', parseInt(data.selectedOperator))
     operatorVehicleMappingService(formData)
       .then(res => {
         toast(res.data, { type: 'success' })
@@ -78,59 +96,65 @@ export default function OperatorMappingListModal({
           toast('Something went wrong!!', { type: 'error' })
         }
       })
-      .finally(() => setIsLoader(false))
+      .finally(() => setFieldValue('isLoader', false))
   }
 
   return (
-    <Modal size="md" show={show} centered>
-      <Modal.Body>
-        <div className={classes.titleContainer}>
-          <p className={classes.title}>Operator Mapping</p>
-          <img
-            src={CancelImage}
-            className={classes.cancelImage}
-            onClick={close}
-            alt="cancel icon"
-          />
-        </div>
-        <div className="row">
-          <div className="col-md-12 col-sm-12 my-2">
-            <p className={classes.label}>
-              Select Operator <span className="inputErrorTxt">*</span>
-            </p>
-            <ReactSelect
-              className="basic-single"
-              classNamePrefix="select"
-              name="color"
-              placeholder="Select Operator..."
-              isClearable={true}
-              value={operatorMappingListData?.find(
-                e => e.operator_id === selectedOperator
-              )}
-              styles={customStyles}
-              options={operatorMappingListData}
-              getOptionLabel={e => e.operator_name}
-              getOptionValue={e => e.operator_name}
-              key={operatorMappingListData !== '' ? Math.random() : '123'}
-              onChange={e => {
-                if (e !== null) {
-                  setSelectedOperator(e.operator_id)
-                } else {
-                  setSelectedOperator('')
-                }
-              }}
+    <>
+      <Loader isLoader={values.isLoader} />
+      <Modal size="md" show={show} centered>
+        <Modal.Body>
+          <div className={classes.titleContainer}>
+            <p className={classes.title}>Operator Mapping</p>
+            <img
+              src={CancelImage}
+              className={classes.cancelImage}
+              onClick={close}
+              alt="cancel icon"
             />
           </div>
-          <div className="col-md-12 d-flex justify-content-end mt-2">
-            <button className="cancelBtn" onClick={close}>
-              Cancel
-            </button>
-            <button className="saveBtn" onClick={handleOperatorMappingList}>
-              Save
-            </button>
+          <div className="row">
+            <div className="col-md-12 col-sm-12 my-2">
+              <p className={classes.label}>
+                Select Operator <span className="inputErrorTxt">*</span>
+              </p>
+              <ReactSelect
+                className="basic-single"
+                classNamePrefix="select"
+                name="color"
+                placeholder="Select Operator..."
+                isClearable={true}
+                value={values?.operatorMappingList?.find(
+                  e => e.operator_id === values.selectedOperator
+                )}
+                styles={customStyles}
+                options={values.operatorMappingList}
+                getOptionLabel={e => e.operator_name}
+                getOptionValue={e => e.operator_name}
+                key={values.operatorMappingList !== '' ? Math.random() : '123'}
+                onChange={e => {
+                  if (e !== null) {
+                    setFieldValue('selectedOperator', e.operator_id)
+                  } else {
+                    setFieldValue('selectedOperator', '')
+                  }
+                }}
+              />
+              {touched.selectedOperator && errors.selectedOperator && (
+                <p className="inputErrorTxt mb-0">{errors.selectedOperator}</p>
+              )}
+            </div>
+            <div className="col-md-12 d-flex justify-content-end mt-2">
+              <button className="cancelBtn" onClick={close}>
+                Cancel
+              </button>
+              <button className="saveBtn" onClick={handleSubmit}>
+                Save
+              </button>
+            </div>
           </div>
-        </div>
-      </Modal.Body>
-    </Modal>
+        </Modal.Body>
+      </Modal>
+    </>
   )
 }

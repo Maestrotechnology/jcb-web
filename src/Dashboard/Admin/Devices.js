@@ -33,6 +33,7 @@ export default function Devices() {
     listDeviceService(formData, pageNum)
       .then(res => {
         setDeviceData(res.data)
+        setPage(pageNum - 1)
       })
       .catch(err => {
         if (err?.response?.data?.detail) {
@@ -108,7 +109,7 @@ export default function Devices() {
         />
       ) : null}
 
-      <Table striped bordered hover responsive className="mt-4">
+      <Table striped bordered responsive className="mt-4">
         <thead className={classes.tableResponsive}>
           <tr className="text-center">
             <th>S.No</th>

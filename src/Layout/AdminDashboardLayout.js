@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import classes from './Layout.module.css'
 import UserImage from '../Assets/Icons/user_profile.png'
@@ -11,15 +11,17 @@ import WorkReportImage from '../Assets/Icons/work_report.png'
 import SearchImage from '../Assets/Icons/search.png'
 import ChargeSettingImage from '../Assets/Icons/charge_setting.svg'
 import DeviceImage from '../Assets/Icons/devices.svg'
+import ManagementImage from '../Assets/Icons/management.svg'
 import toggle from '../Assets/Icons/toggler1.png'
-import { Dropdown, Offcanvas } from 'react-bootstrap'
+import { Accordion, Dropdown, Offcanvas } from 'react-bootstrap'
 import LogoutConfirmationModal from '../ModalComponents/LogoutConfirmationModal'
 import Loader from '../Loader'
 import { viewProfileService } from '../Services/Services'
 import { handleUserData } from '../Store/Reducers/AuthReducer'
 import toast from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 export default function AdminDashboardLayout() {
+  const { loginUserData } = useSelector(state => state.auth)
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -34,8 +36,16 @@ export default function AdminDashboardLayout() {
   const [isLogout, setIsLogout] = useState(false)
   const [isLoader, setIsLoader] = useState(false)
   const [userName, setUserName] = useState('')
-
+  const [isManagement, setIsManagement] = useState(false)
   const [toggler, settoggler] = useState(false)
+
+  useEffect(() => {
+    setSearchData({
+      refSearch: '',
+      search: '',
+    })
+  }, [pathname])
+
   const navigationData = [
     {
       id: 1,
@@ -45,30 +55,39 @@ export default function AdminDashboardLayout() {
     },
     {
       id: 2,
-      name: 'Vehicle',
-      icon: VehicleImage,
-      navigatePath: '/admin_dashboard/vehicle_details',
+      name: 'Management',
+      icon: ManagementImage,
+      subHeadingData: [
+        {
+          id: 21,
+          name: 'Vehicle',
+          icon: VehicleImage,
+          navigatePath: '/admin_dashboard/vehicle_details',
+        },
+        {
+          id: 22,
+          name: 'Operator',
+          icon: OperatorImage,
+          navigatePath: '/admin_dashboard/operator_details',
+        },
+        {
+          id: 23,
+          name: 'Devices',
+          icon: DeviceImage,
+          navigatePath: '/admin_dashboard/device_details',
+        },
+      ],
     },
+
     {
       id: 3,
-      name: 'Operator',
-      icon: OperatorImage,
-      navigatePath: '/admin_dashboard/operator_details',
-    },
-    {
-      id: 4,
       name: 'Customer',
       icon: CustomeImage,
       navigatePath: '/admin_dashboard/customer_details',
     },
+
     {
-      id: 5,
-      name: 'Devices',
-      icon: DeviceImage,
-      navigatePath: '/admin_dashboard/device_details',
-    },
-    {
-      id: 6,
+      id: 4,
       name: 'Work report',
       icon: WorkReportImage,
       navigatePath: '/admin_dashboard/work_report',
@@ -117,26 +136,84 @@ export default function AdminDashboardLayout() {
         <div className={classes.adminLeftContainer}>
           <div className={classes.adminChildLeftConatiner}>
             <div className={classes.adminInnerLeftContainer}>
-              {navigationData?.map(ele => (
-                <div
-                  key={ele.id}
-                  className={classes.link}
-                  style={{
-                    backgroundColor:
-                      pathname === ele.navigatePath ? '#fff' : null,
-                  }}
-                  onClick={() => {
-                    navigate(ele.navigatePath)
-                  }}
-                >
-                  <img
-                    src={ele.icon}
-                    alt={ele.name}
-                    className={classes.menuIcon}
-                  />
-                  <span className="ms-2">{ele.name}</span>
-                </div>
-              ))}
+              {navigationData?.map(ele =>
+                ele.name !== 'Management' ? (
+                  <>
+                    <div
+                      key={ele.id}
+                      className={classes.link}
+                      style={{
+                        backgroundColor:
+                          pathname === ele.navigatePath ? '#fff' : null,
+                      }}
+                      onClick={() => {
+                        navigate(ele.navigatePath)
+                      }}
+                    >
+                      <img
+                        src={ele.icon}
+                        alt={ele.name}
+                        className={classes.menuIcon}
+                      />
+                      <span className="ms-2">{ele.name}</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <Accordion
+                      key={ele.id}
+                      onSelect={e => {
+                        if (e === 'isManagement') {
+                          setIsManagement(true)
+                        }
+                      }}
+                    >
+                      <Accordion.Item eventKey="isManagement" style={{}}>
+                        <Accordion.Button
+                          style={{
+                            fontFamily: 'var(--fontMedium)',
+                            display: 'flex',
+                            ':not(.collapsed)': {
+                              backgroundColor: 'var(--dangerColor)',
+                            },
+                          }}
+                        >
+                          <img
+                            src={ele.icon}
+                            alt={ele.name}
+                            className={classes.menuIcon}
+                          />
+                          <span className="ms-2">{ele.name}</span>
+                        </Accordion.Button>
+                        {ele?.subHeadingData?.map(element => (
+                          <Accordion.Body>
+                            <div
+                              key={element.id}
+                              className={classes.link + ' my-0'}
+                              style={{
+                                backgroundColor:
+                                  pathname === element.navigatePath
+                                    ? '#fff'
+                                    : null,
+                              }}
+                              onClick={() => {
+                                navigate(element.navigatePath)
+                              }}
+                            >
+                              <img
+                                src={element.icon}
+                                alt={element.name}
+                                className={classes.menuIcon}
+                              />
+                              <span className="ms-2">{element.name}</span>
+                            </div>
+                          </Accordion.Body>
+                        ))}
+                      </Accordion.Item>
+                    </Accordion>
+                  </>
+                )
+              )}
             </div>
           </div>
         </div>
@@ -197,50 +274,46 @@ export default function AdminDashboardLayout() {
                 </Offcanvas.Body>
               </Offcanvas>
 
-              <div className={classes.profileImgOuterBorder}>
-                <Dropdown
-                  onSelect={e => {
-                    if (e === 'profile') {
-                      navigate('/admin_dashboard/profile')
-                    } else if (e === 'logout') {
-                      setIsLogout(true)
-                    }
-                  }}
-                >
-                  <Dropdown.Toggle variant="white">
+              <Dropdown
+                onSelect={e => {
+                  if (e === 'profile') {
+                    navigate('/admin_dashboard/profile')
+                  } else if (e === 'logout') {
+                    setIsLogout(true)
+                  }
+                }}
+              >
+                <Dropdown.Toggle variant="white">
+                  <img
+                    className={classes.profileImg}
+                    src={UserImage}
+                    alt="profile"
+                  />
+                  {loginUserData?.name?.length > 9
+                    ? loginUserData?.name?.substring(0, 9) + '...'
+                    : loginUserData?.name}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item className="d-flex" eventKey="profile">
                     <img
-                      className={classes.profileImg}
                       src={UserImage}
-                      alt="profile"
+                      className={classes.menuIcon + ' me-1'}
+                      alt="logout_image"
                     />
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item
-                      className="text-center d-flex justify-content-center"
-                      eventKey="profile"
-                    >
-                      <img
-                        src={UserImage}
-                        className={classes.menuIcon + ' me-1'}
-                        alt="logout_image"
-                      />
-                      Profile
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      className="text-center d-flex justify-content-center"
-                      eventKey="logout"
-                    >
-                      <img
-                        src={LogoutImage}
-                        className={classes.menuIcon + ' me-1'}
-                        alt="logout_image"
-                      />
-                      Logout
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
+                    Profile
+                  </Dropdown.Item>
+                  <Dropdown.Item className="d-flex " eventKey="logout">
+                    <img
+                      src={LogoutImage}
+                      className={classes.menuIcon + ' me-1'}
+                      alt="logout_image"
+                    />
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
+
             <div className={classes.titleContainer}>
               <p className={classes.title}>
                 {pathname === '/admin_dashboard'

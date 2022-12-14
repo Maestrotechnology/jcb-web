@@ -1,5 +1,9 @@
 import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  createHashRouter,
+  RouterProvider,
+} from 'react-router-dom'
 import Signin from './Authentication/Signin'
 import Signup from './Authentication/Signup'
 import Otp from './Authentication/Otp'
@@ -26,8 +30,9 @@ import Profile from './Authentication/Profile'
 import SuperAdminDashboardLayout from './Layout/SuperAdminDashboardLayout'
 import SuperAdminHomeDashboard from './Dashboard/SuperAdmin/SuperAdminHomeDashboard'
 import SuperAdminDevice from './Dashboard/SuperAdmin/SuperAdminDevice'
+import ChangePassword from './Authentication/ChangePassword'
 
-const router = createBrowserRouter([
+const routes = [
   {
     errorElement: <ErrorElement />,
     element: <AuthPrivateRoute />,
@@ -51,6 +56,10 @@ const router = createBrowserRouter([
           {
             path: 'forgot_password',
             element: <ForgotPassword />,
+          },
+          {
+            path: 'change_password',
+            element: <ChangePassword />,
           },
         ],
       },
@@ -119,7 +128,9 @@ const router = createBrowserRouter([
     path: '*',
     element: <ErrorNotFound />,
   },
-])
+]
+
+const router = createBrowserRouter(routes, { basename: '' })
 
 function App() {
   return <RouterProvider router={router} />

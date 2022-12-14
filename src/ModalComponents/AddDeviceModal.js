@@ -7,6 +7,7 @@ import toast from 'react-hot-toast'
 import { createDeviceService } from '../Services/Services'
 import { SPECIAL_CHARACTER_REGEX } from '../Utilities/Constants'
 import { useFormik } from 'formik'
+import Loader from '../Loader'
 
 const deviceSchema = Yup.object({
   device_code: Yup.string()
@@ -53,60 +54,63 @@ export default function AddDeviceModal({ show, close, deviceData }) {
   }
 
   return (
-    <Modal show={show} size="md" centered>
-      <Modal.Body>
-        <div className={classes.titleContainer}>
-          <p className={classes.title}>Device</p>
-          <img
-            src={CancelImage}
-            className={classes.cancelImage}
-            onClick={close}
-            alt="cancel icon"
-          />
-        </div>
-        <div className="row">
-          <div className="col-md-12 col-sm-12 my-2">
-            <p className={classes.label}>
-              Device code <span className="inputErrorTxt">*</span>
-            </p>
-            <input
-              name="device_code"
-              className={classes.input}
-              placeholder="Enter device code"
-              onChange={handleChange}
-              value={values.device_code}
-              maxLength="20"
+    <>
+      <Loader isLoader={values.isLoader} />
+      <Modal show={show} size="md" centered>
+        <Modal.Body>
+          <div className={classes.titleContainer}>
+            <p className={classes.title}>Device</p>
+            <img
+              src={CancelImage}
+              className={classes.cancelImage}
+              onClick={close}
+              alt="cancel icon"
             />
-            {touched.device_code && errors.device_code && (
-              <p className="inputErrorTxt mb-0">{errors.device_code}</p>
-            )}
           </div>
-          <div className="col-md-12 col-sm-12 my-2">
-            <p className={classes.label}>
-              Device name <span className="inputErrorTxt">*</span>
-            </p>
-            <input
-              name="device_name"
-              className={classes.input}
-              placeholder="Enter device name"
-              onChange={handleChange}
-              value={values.device_name}
-              maxLength="20"
-            />
-            {touched.device_name && errors.device_name && (
-              <p className="inputErrorTxt mb-0">{errors.device_name}</p>
-            )}
+          <div className="row">
+            <div className="col-md-12 col-sm-12 my-2">
+              <p className={classes.label}>
+                Device code <span className="inputErrorTxt">*</span>
+              </p>
+              <input
+                name="device_code"
+                className={classes.input}
+                placeholder="Enter device code"
+                onChange={handleChange}
+                value={values.device_code}
+                maxLength="20"
+              />
+              {touched.device_code && errors.device_code && (
+                <p className="inputErrorTxt mb-0">{errors.device_code}</p>
+              )}
+            </div>
+            <div className="col-md-12 col-sm-12 my-2">
+              <p className={classes.label}>
+                Device name <span className="inputErrorTxt">*</span>
+              </p>
+              <input
+                name="device_name"
+                className={classes.input}
+                placeholder="Enter device name"
+                onChange={handleChange}
+                value={values.device_name}
+                maxLength="20"
+              />
+              {touched.device_name && errors.device_name && (
+                <p className="inputErrorTxt mb-0">{errors.device_name}</p>
+              )}
+            </div>
+            <div className="col-md-12 d-flex justify-content-end mt-2">
+              <button className="cancelBtn" onClick={close}>
+                Cancel
+              </button>
+              <button className="saveBtn" onClick={handleSubmit}>
+                Save
+              </button>
+            </div>
           </div>
-          <div className="col-md-12 d-flex justify-content-end mt-2">
-            <button className="cancelBtn" onClick={close}>
-              Cancel
-            </button>
-            <button className="saveBtn" onClick={handleSubmit}>
-              Save
-            </button>
-          </div>
-        </div>
-      </Modal.Body>
-    </Modal>
+        </Modal.Body>
+      </Modal>
+    </>
   )
 }

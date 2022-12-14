@@ -27,31 +27,10 @@ export default function AdminHomeDashboard() {
     },
     {
       id: 3,
-      name: `Customer`,
-      navigatePath: '/admin_dashboard/customer_details',
-      img: CustomeImage,
-      alt_text: 'customer image',
-    },
-    {
-      id: 4,
       name: `Devices - ${data?.device_count || 0}`,
       navigatePath: '/admin_dashboard/device_details',
       img: CustomeImage,
       alt_text: 'device image',
-    },
-    {
-      id: 5,
-      name: `Work report`,
-      navigatePath: '/admin_dashboard/work_report',
-      img: WorkReportImage,
-      alt_text: 'work report image',
-    },
-    {
-      id: 6,
-      name: `Charge Setting`,
-      navigatePath: '/admin_dashboard/charge_setting_details',
-      img: CustomeImage,
-      alt_text: 'charge setting image',
     },
   ]
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import UserLogo from '../Assets/Icons/dashboard.svg'
+import DeviceImage from '../Assets/Icons/devices.svg'
 import CustomeImage from '../Assets/Icons/customer.png'
 import classes from './Layout.module.css'
 import { useSelector } from 'react-redux'
@@ -11,8 +11,6 @@ export default function SuperAdminDashboardLayout() {
   const navigate = useNavigate()
   const { loginUserData } = useSelector(state => state.auth)
   const [isLogout, setIsLogout] = useState(false)
-
-  console.log(loginUserData, '====')
 
   const navigationMenuData = [
     {
@@ -26,7 +24,7 @@ export default function SuperAdminDashboardLayout() {
       id: 2,
       name: 'Device',
       navigationPath: '/superadmin_dashboard/devices',
-      img: UserLogo,
+      img: DeviceImage,
       altTxt: 'device',
     },
   ]

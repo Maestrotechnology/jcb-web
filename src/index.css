@@ -99,6 +99,14 @@
   display: none !important;
 
 }
+.dropdown-toggle{
+  background-color: var(--superadminBg) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Responsive Offcanvas Custom Styles */
+
 .btn-close{
   background:  var(--secondaryColor) !important;
 }
@@ -115,4 +123,40 @@
 
 .fade{
   padding-left: 0 !important;
+}
+
+/* Accordion Custom Styles */
+
+.accordion{
+  width: 100% !important;
+}
+
+.accordion-button::after{
+  display: none !important;
+}
+
+.accordion-button{
+  display: flex !important;
+  border-radius: 8px 0px 0px 8px !important;
+  align-items: flex-start !important;
+  background-color: var(--lightPrimaryColor) !important;
+  padding: 12px !important;
+}
+
+.accordion-button:focus{
+  box-shadow: unset !important;
+}
+
+.accordion-item{
+  border: unset !important;
+  background-color: var(--lightPrimaryColor) !important;
+}
+
+.accordion-button:not(.collapsed){
+  /* background-color: var(--whiteColor) !important; */
+  color: var(--blackColor) !important;
+}
+
+.accordion-body{
+  padding-right: 0 !important;
 }

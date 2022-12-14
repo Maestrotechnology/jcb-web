@@ -53,7 +53,7 @@ export default function Signin() {
     formData.append('password', data.password)
     loginService(formData)
       .then(res => {
-        setCookie('loginData', res.data)
+        setCookie('jcbLoginData', res.data)
         navigate(
           res?.data?.user_type === 2
             ? '/admin_dashboard'

@@ -64,7 +64,11 @@ export default function SuperAdminHomeDashboard() {
     }
     listCompanyAdminService(formData, PageNum)
       .then(res => {
-        setFieldValue('customerData', res.data)
+        setValues({
+          ...values,
+          customerData: res.data,
+          page: PageNum - 1,
+        })
       })
       .catch(err => {
         if (err?.response?.data?.detail) {
@@ -198,7 +202,7 @@ export default function SuperAdminHomeDashboard() {
             </button>
           </div>
         </div>
-        <Table striped bordered hover responsive className="mt-4">
+        <Table striped bordered responsive className="mt-4">
           <thead className={classes.tableResponsive}>
             <tr className="text-center">
               <th>S.No</th>

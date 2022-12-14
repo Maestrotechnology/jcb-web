@@ -8,6 +8,7 @@ import { updateOperatorService } from '../Services/Services'
 import toast from 'react-hot-toast'
 import { MOBILE_REGEX, NAME_REGEX } from '../Utilities/Constants'
 import UploadImage from '../Assets/Icons/upload_image.png'
+import Loader from '../Loader'
 const operatorSchema = Yup.object({
   operator_name: Yup.string()
     .matches(NAME_REGEX, 'Enter valid name')
@@ -87,138 +88,141 @@ export default function EditOperatorModal({
   }
 
   return (
-    <Modal show={show} size="md" centered>
-      <Modal.Body>
-        <div className={classes.titleContainer}>
-          <p className={classes.title}>Operator</p>
-          <img
-            src={CancelImage}
-            className={classes.cancelImage}
-            onClick={close}
-            alt="cancel icon"
-          />
-        </div>
-        <div className="row">
-          <div className="col-md-12 col-sm-12 my-2">
-            <p className={classes.label}>
-              Operator Name <span className="inputErrorTxt mb-0">*</span>
-            </p>
-            <input
-              name="operator_name"
-              className={classes.input}
-              placeholder="Enter operator name"
-              onChange={handleChange}
-              value={values.operator_name}
-              maxLength="15"
+    <>
+      <Loader isLoader={values.isLoader} />
+      <Modal show={show} size="md" centered>
+        <Modal.Body>
+          <div className={classes.titleContainer}>
+            <p className={classes.title}>Operator</p>
+            <img
+              src={CancelImage}
+              className={classes.cancelImage}
+              onClick={close}
+              alt="cancel icon"
             />
-            {touched.operator_name && errors.operator_name && (
-              <p className="inputErrorTxt mb-0">{errors.operator_name}</p>
-            )}
           </div>
-          <div className="col-md-12 col-sm-12 my-2">
-            <p className={classes.label}>
-              Mobile number <span className="inputErrorTxt mb-0">*</span>
-            </p>
-            <input
-              name="mobile"
-              className={classes.input}
-              placeholder="Enter mobile number"
-              onChange={handleChange}
-              value={values.mobile}
-              maxLength="10"
-              onKeyPress={e => {
-                if (e.key === '0' || parseInt(e.key)) {
-                } else {
-                  e.preventDefault()
-                }
-              }}
-            />
-            {touched.mobile && errors.mobile && (
-              <p className="inputErrorTxt mb-0">{errors.mobile}</p>
-            )}
-          </div>
-          <div className="col-md-12 col-sm-12 my-2">
-            <p className={classes.label}>
-              Address <span className="inputErrorTxt mb-0">*</span>
-            </p>
-            <input
-              name="address"
-              className={classes.input}
-              placeholder="Enter operator name"
-              onChange={handleChange}
-              value={values.address}
-              maxLength="300"
-            />
-            {touched.address && errors.address && (
-              <p className="inputErrorTxt mb-0">{errors.address}</p>
-            )}
-          </div>
-          <div
-            className="col-md-12 col-sm-12 my-2"
-            style={{
-              display: values.image !== '' ? 'flex' : 'block',
-              alignItems: values.image !== '' ? 'center' : null,
-            }}
-          >
+          <div className="row">
+            <div className="col-md-12 col-sm-12 my-2">
+              <p className={classes.label}>
+                Operator Name <span className="inputErrorTxt mb-0">*</span>
+              </p>
+              <input
+                name="operator_name"
+                className={classes.input}
+                placeholder="Enter operator name"
+                onChange={handleChange}
+                value={values.operator_name}
+                maxLength="15"
+              />
+              {touched.operator_name && errors.operator_name && (
+                <p className="inputErrorTxt mb-0">{errors.operator_name}</p>
+              )}
+            </div>
+            <div className="col-md-12 col-sm-12 my-2">
+              <p className={classes.label}>
+                Mobile number <span className="inputErrorTxt mb-0">*</span>
+              </p>
+              <input
+                name="mobile"
+                className={classes.input}
+                placeholder="Enter mobile number"
+                onChange={handleChange}
+                value={values.mobile}
+                maxLength="10"
+                onKeyPress={e => {
+                  if (e.key === '0' || parseInt(e.key)) {
+                  } else {
+                    e.preventDefault()
+                  }
+                }}
+              />
+              {touched.mobile && errors.mobile && (
+                <p className="inputErrorTxt mb-0">{errors.mobile}</p>
+              )}
+            </div>
+            <div className="col-md-12 col-sm-12 my-2">
+              <p className={classes.label}>
+                Address <span className="inputErrorTxt mb-0">*</span>
+              </p>
+              <input
+                name="address"
+                className={classes.input}
+                placeholder="Enter operator name"
+                onChange={handleChange}
+                value={values.address}
+                maxLength="300"
+              />
+              {touched.address && errors.address && (
+                <p className="inputErrorTxt mb-0">{errors.address}</p>
+              )}
+            </div>
             <div
-              className={classes.imageUploadContainer}
-              onClick={() => {
-                handleFileUpload.current.click()
+              className="col-md-12 col-sm-12 my-2"
+              style={{
+                display: values.image !== '' ? 'flex' : 'block',
+                alignItems: values.image !== '' ? 'center' : null,
               }}
             >
-              <img
-                src={UploadImage}
-                alt="upload_image"
-                className={classes.img}
-              />
-            </div>
-            <input
-              ref={handleFileUpload}
-              type="file"
-              id="imageUpload"
-              name="image"
-              accept="image/*"
-              style={{ display: 'none' }}
-              onChange={e => {
-                setFieldValue('image', e.target.files[0])
-                handleFileUpload.current.value = ''
-              }}
-            />
-            {values.image !== '' ? (
-              <div className={classes.uploadedImgContainer}>
+              <div
+                className={classes.imageUploadContainer}
+                onClick={() => {
+                  handleFileUpload.current.click()
+                }}
+              >
                 <img
-                  src={
-                    values?.image !== '' &&
-                    values?.image?.toString()?.includes('http') &&
-                    typeof values?.image !== undefined
-                      ? values?.image
-                      : URL.createObjectURL(values?.image)
-                  }
-                  alt="uploaded_image"
-                  className={classes.uploadedImg}
-                />
-                <img
-                  src={CancelImage}
-                  alt="cancel_uploaded_image"
-                  className={classes.uploadImgCancel}
-                  onClick={() => setFieldValue('image', '')}
+                  src={UploadImage}
+                  alt="upload_image"
+                  className={classes.img}
                 />
               </div>
-            ) : null}
-            {touched.image && errors.image && (
-              <p className="inputErrorTxt mb-0">{errors.image}</p>
-            )}
+              <input
+                ref={handleFileUpload}
+                type="file"
+                id="imageUpload"
+                name="image"
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={e => {
+                  setFieldValue('image', e.target.files[0])
+                  handleFileUpload.current.value = ''
+                }}
+              />
+              {values.image !== '' ? (
+                <div className={classes.uploadedImgContainer}>
+                  <img
+                    src={
+                      values?.image !== '' &&
+                      values?.image?.toString()?.includes('http') &&
+                      typeof values?.image !== undefined
+                        ? values?.image
+                        : URL.createObjectURL(values?.image)
+                    }
+                    alt="uploaded_image"
+                    className={classes.uploadedImg}
+                  />
+                  <img
+                    src={CancelImage}
+                    alt="cancel_uploaded_image"
+                    className={classes.uploadImgCancel}
+                    onClick={() => setFieldValue('image', '')}
+                  />
+                </div>
+              ) : null}
+              {touched.image && errors.image && (
+                <p className="inputErrorTxt mb-0">{errors.image}</p>
+              )}
+            </div>
+            <div className="col-md-12 d-flex justify-content-end">
+              <button className="cancelBtn" onClick={close}>
+                Cancel
+              </button>
+              <button className="saveBtn" onClick={handleSubmit}>
+                Update
+              </button>
+            </div>
           </div>
-          <div className="col-md-12 d-flex justify-content-end">
-            <button className="cancelBtn" onClick={close}>
-              Cancel
-            </button>
-            <button className="saveBtn" onClick={handleSubmit}>
-              Update
-            </button>
-          </div>
-        </div>
-      </Modal.Body>
-    </Modal>
+        </Modal.Body>
+      </Modal>
+    </>
   )
 }
