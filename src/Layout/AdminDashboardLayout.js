@@ -37,13 +37,23 @@ export default function AdminDashboardLayout() {
   const [isLoader, setIsLoader] = useState(false)
   const [userName, setUserName] = useState('')
   const [isManagement, setIsManagement] = useState(false)
+  const [isManagementSubHeading, setIsManagementSubHeading] = useState(false)
   const [toggler, settoggler] = useState(false)
-
   useEffect(() => {
     setSearchData({
       refSearch: '',
       search: '',
     })
+    if (
+      pathname === '/admin_dashboard/vehicle_details' ||
+      pathname === '/admin_dashboard/operator_details' ||
+      pathname === '/admin_dashboard/device_details'
+    ) {
+      setIsManagement(true)
+      setIsManagementSubHeading(true)
+    } else {
+      setIsManagementSubHeading(false)
+    }
   }, [pathname])
 
   const navigationData = [
@@ -57,6 +67,7 @@ export default function AdminDashboardLayout() {
       id: 2,
       name: 'Management',
       icon: ManagementImage,
+      navigatePath: 'management',
       subHeadingData: [
         {
           id: 21,
@@ -136,84 +147,59 @@ export default function AdminDashboardLayout() {
         <div className={classes.adminLeftContainer}>
           <div className={classes.adminChildLeftConatiner}>
             <div className={classes.adminInnerLeftContainer}>
-              {navigationData?.map(ele =>
-                ele.name !== 'Management' ? (
-                  <>
-                    <div
-                      key={ele.id}
-                      className={classes.link}
-                      style={{
-                        backgroundColor:
-                          pathname === ele.navigatePath ? '#fff' : null,
-                      }}
-                      onClick={() => {
+              {navigationData?.map(ele => (
+                <>
+                  <div
+                    key={ele.id}
+                    className={classes.link}
+                    style={{
+                      backgroundColor:
+                        pathname === ele.navigatePath ||
+                        (ele.id === 2 && isManagementSubHeading)
+                          ? '#fff'
+                          : null,
+                    }}
+                    onClick={() => {
+                      if (ele.id === 2) {
+                        setIsManagement(!isManagement)
+                      } else {
+                        setIsManagement(false)
                         navigate(ele.navigatePath)
-                      }}
-                    >
-                      <img
-                        src={ele.icon}
-                        alt={ele.name}
-                        className={classes.menuIcon}
-                      />
-                      <span className="ms-2">{ele.name}</span>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <Accordion
-                      key={ele.id}
-                      onSelect={e => {
-                        if (e === 'isManagement') {
-                          setIsManagement(true)
-                        }
-                      }}
-                    >
-                      <Accordion.Item eventKey="isManagement" style={{}}>
-                        <Accordion.Button
-                          style={{
-                            fontFamily: 'var(--fontMedium)',
-                            display: 'flex',
-                            ':not(.collapsed)': {
-                              backgroundColor: 'var(--dangerColor)',
-                            },
-                          }}
-                        >
-                          <img
-                            src={ele.icon}
-                            alt={ele.name}
-                            className={classes.menuIcon}
-                          />
-                          <span className="ms-2">{ele.name}</span>
-                        </Accordion.Button>
-                        {ele?.subHeadingData?.map(element => (
-                          <Accordion.Body>
-                            <div
-                              key={element.id}
-                              className={classes.link + ' my-0'}
-                              style={{
-                                backgroundColor:
-                                  pathname === element.navigatePath
-                                    ? '#fff'
-                                    : null,
-                              }}
-                              onClick={() => {
-                                navigate(element.navigatePath)
-                              }}
-                            >
-                              <img
-                                src={element.icon}
-                                alt={element.name}
-                                className={classes.menuIcon}
-                              />
-                              <span className="ms-2">{element.name}</span>
-                            </div>
-                          </Accordion.Body>
-                        ))}
-                      </Accordion.Item>
-                    </Accordion>
-                  </>
-                )
-              )}
+                      }
+                    }}
+                  >
+                    <img
+                      src={ele.icon}
+                      alt={ele.name}
+                      className={classes.menuIcon}
+                    />
+                    <span className="ms-2">{ele.name}</span>
+                  </div>
+
+                  {isManagement &&
+                    ele?.subHeadingData?.map(elememnt => (
+                      <div
+                        key={elememnt.id}
+                        className={classes.link + ' ms-5'}
+                        style={{
+                          backgroundColor:
+                            pathname === elememnt.navigatePath ? '#fff' : null,
+                        }}
+                        onClick={() => {
+                          setIsManagementSubHeading(true)
+                          navigate(elememnt.navigatePath)
+                        }}
+                      >
+                        <img
+                          src={elememnt.icon}
+                          alt={elememnt.name}
+                          className={classes.menuIcon}
+                        />
+                        <span className="ms-2">{elememnt.name}</span>
+                      </div>
+                    ))}
+                </>
+              ))}
             </div>
           </div>
         </div>

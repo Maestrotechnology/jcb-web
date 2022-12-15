@@ -130,7 +130,7 @@ const routes = [
   },
 ]
 
-const router = createBrowserRouter(routes, { basename: '' })
+const router = createBrowserRouter(routes, { basename: '/jcb' })
 
 function App() {
   return <RouterProvider router={router} />

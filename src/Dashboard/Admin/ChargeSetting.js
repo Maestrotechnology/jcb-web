@@ -13,10 +13,8 @@ import DeleteImage from '../../Assets/Icons/table_delete.png'
 import DeleteConfirmationModal from '../../ModalComponents/DeleteConfirmationModal'
 export default function ChargeSetting() {
   const { isAddModal, setIsAddModal } = useOutletContext()
-  const [isEditModal, setIsEditModal] = useState({ show: false, data: null })
   const [isLoader, setIsLoader] = useState(false)
   const [chargeSettingData, setChargeSettingData] = useState([])
-  const [page, setPage] = useState(0)
   const [isDelete, setIsDelete] = useState({ show: false, delete_id: '' })
 
   useEffect(() => {
